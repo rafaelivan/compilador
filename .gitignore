@@ -1,0 +1,16 @@
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.xcodeproj
+*.1
+*.pbxbtree
+*.dat
+*.hmap
+*.dep
+*.LinkFileList
+*.header
+*.pbxsymbols
+compiler/build/*
