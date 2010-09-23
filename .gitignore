@@ -13,4 +13,7 @@
 *.LinkFileList
 *.header
 *.pbxsymbols
+*.dev
+*.layout
+*.win
 compiler/build/*
