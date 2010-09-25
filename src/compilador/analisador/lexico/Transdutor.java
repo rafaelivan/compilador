@@ -1,6 +1,6 @@
 package compilador.analisador.lexico;
 
-public class Automato {
+public class Transdutor {
 	
 	/**
 	 * Indica um estado inv‡lido.
@@ -33,7 +33,7 @@ public class Automato {
 	 */
 	private int[] tabelaClasses;
 	
-	public Automato() {
+	public Transdutor() {
 		this.carregaTabelaTransicao();
 		this.carregaTabelaClasses();
 		this.estadoAtual = ESTADO_INICIAL;

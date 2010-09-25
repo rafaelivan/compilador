@@ -14,7 +14,7 @@ public class AnalisadorLexico {
 	/**
 	 * Autômato que reconhece os tokens da linguagem.
 	 */
-	private Automato automato;
+	private Transdutor transdutor;
 	
 	/**
 	 * Aponta para o caracter atualmente a ser processo.
@@ -48,7 +48,7 @@ public class AnalisadorLexico {
 	
 	public AnalisadorLexico() {
 		this.buffer = new int[100];
-		this.automato = new Automato();
+		this.transdutor = new Transdutor();
 		this.haMaisTokens = true;
 		this.finalDoArquivo = false;
 		this.ch = -1;
@@ -109,7 +109,7 @@ public class AnalisadorLexico {
 			}
 			
 			// Executa uma transição no autômato.
-			classe = automato.transicao(this.ch);
+			classe = transdutor.transicao(this.ch);
 			
 			switch(classe) {
 				case Token.CLASSE_TOKEN_NAO_FINALIZADO:
