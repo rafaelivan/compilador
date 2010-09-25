@@ -13,6 +13,11 @@ public class Transdutor {
 	public static final int ESTADO_INICIAL = 0;
 	
 	/**
+	 * Indica um estado que trata coment‡rios do c—digo-fonte.
+	 */
+	public static final int ESTADO_COMENTARIO = 4; //TODO: deixar mais flex’vel.
+	
+	/**
 	 * Nœmero de estados do aut™mato.
 	 */
 	private int estados;
@@ -33,10 +38,16 @@ public class Transdutor {
 	 */
 	private int[] tabelaClasses;
 	
+	/**
+	 * Indica se o transdutor est‡ ou n‹o no estado que trata coment‡rios.
+	 */
+	private boolean estadoComentario;
+	
 	public Transdutor() {
 		this.carregaTabelaTransicao();
 		this.carregaTabelaClasses();
 		this.estadoAtual = ESTADO_INICIAL;
+		this.estadoComentario = false;
 	}
 	
 	/**
@@ -185,12 +196,15 @@ public class Transdutor {
 		int proximoEstado; 
 		int saida;
 		
+		/* Verifica se a entrada Ž um caracter ASCII v‡lido. */
 		if(entrada < 0){
 			proximoEstado = ESTADO_INVALIDO;
 		} else {
+			// Efetua uma transi‹o determin’stica.
 			proximoEstado = this.tabelaTransicao[this.estadoAtual][entrada];
 		}
 		
+		/* Decide qual a classe de token correspondente ˆ situa‹o atual do aut™mato. */
 		if(proximoEstado == ESTADO_INVALIDO) {
 			// Terminou o reconhecimento do token, pois n‹o achou transi‹o.
 			saida = this.tabelaClasses[this.estadoAtual];
@@ -201,6 +215,13 @@ public class Transdutor {
 			// Ainda n‹o chegou ao final do reconhecimento.
 			saida = Token.CLASSE_TOKEN_NAO_FINALIZADO;
 			this.estadoAtual = proximoEstado;
+		}
+		
+		/* Se foi para um estado de coment‡rio, sinaliza isso. */
+		if(this.estadoAtual == ESTADO_COMENTARIO) {
+			this.estadoComentario = true;
+		} else {
+			this.estadoComentario = false;
 		}
 		
 		return saida;
@@ -214,4 +235,14 @@ public class Transdutor {
 	public int classeEstadoAtual() {
 		return this.tabelaClasses[this.estadoAtual];
 	}
+	
+	/**
+	 * Verifica se o transdutor est‡ no estado de coment‡rio.
+	 * 
+	 * @return <code>true</code>, caso o transdutor esteja em uma estado de coment‡rio. <code>false</code>, caso contr‡rio.
+	 */
+	public boolean estaNoEstadoComentario() {
+		return this.estadoComentario;
+	}
+	
 }

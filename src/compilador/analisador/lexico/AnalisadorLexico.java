@@ -32,6 +32,11 @@ public class AnalisadorLexico {
 	private int[] buffer;
 	
 	/**
+	 * Indica se o armazenamento de caracteres no buffer está ativado.
+	 */
+	private boolean bufferAtivo;
+	
+	/**
 	 * Indica se os Tokens do arquivo já se esgotaram.
 	 */
 	private boolean haMaisTokens; 
@@ -51,8 +56,24 @@ public class AnalisadorLexico {
 		this.transdutor = new Transdutor();
 		this.haMaisTokens = true;
 		this.finalDoArquivo = false;
+		this.bufferAtivo = true;
 		this.ch = -1;
 		this.lookahead = -1;
+	}
+	
+	/**
+	 * Ativa ou desativa o armazenamento de caracteres em buffer, dependendo da situação do compilador.
+	 */
+	private void gerenciarAtividadeBuffer() {
+		if(this.transdutor.estaNoEstadoComentario() 
+				|| this.ch == (int)' ' 
+				|| this.ch == (int)'%' 
+				|| this.ch == (int)'\n' 
+				|| this.ch == (int)'\t') {
+			this.bufferAtivo = false;
+		} else {
+			this.bufferAtivo = true;
+		}
 	}
 	
 	/**
@@ -111,10 +132,14 @@ public class AnalisadorLexico {
 			// Executa uma transição no autômato.
 			classe = transdutor.transicao(this.ch);
 			
+			// Verifica se é necessário ativar ou desativar o armazenamento em buffer.
+			this.gerenciarAtividadeBuffer();
+			
 			switch(classe) {
 				case Token.CLASSE_TOKEN_NAO_FINALIZADO:
 					// Lê mais caracteres do código-fonte.
-					if(this.ch != (int)' ' && this.ch != (char)'%' && this.ch != (int)'\n' && this.ch != '\t') {
+					if(this.bufferAtivo) {
+						// Se o armazenamento estiver ativo, guarda o caracter no buffer.
 						this.buffer[indice] = this.ch;
 						indice++;
 					}
