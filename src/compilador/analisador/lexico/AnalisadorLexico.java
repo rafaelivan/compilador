@@ -32,6 +32,11 @@ public class AnalisadorLexico {
 	private int[] buffer;
 	
 	/**
+	 * Indexa o buffer.
+	 */
+	private int indice;
+	
+	/**
 	 * Indica se o armazenamento de caracteres no buffer está ativado.
 	 */
 	private boolean bufferAtivo;
@@ -57,6 +62,7 @@ public class AnalisadorLexico {
 		this.haMaisTokens = true;
 		this.finalDoArquivo = false;
 		this.bufferAtivo = true;
+		this.indice = 0;
 		this.ch = -1;
 		this.lookahead = -1;
 	}
@@ -65,11 +71,15 @@ public class AnalisadorLexico {
 	 * Ativa ou desativa o armazenamento de caracteres em buffer, dependendo da situação do compilador.
 	 */
 	private void gerenciarAtividadeBuffer() {
-		if(this.transdutor.estaNoEstadoComentario() 
-				|| this.ch == (int)' ' 
-				|| this.ch == (int)'%' 
-				|| this.ch == (int)'\n' 
-				|| this.ch == (int)'\t') {
+		if(this.transdutor.estaNoEstadoComentario()) {
+			this.bufferAtivo = false;
+			
+			/* Limpa o buffer se eventualmente estiver com lixo. */
+			for(int i = 0; i < 100; i++)
+				this.buffer[i] = -1;
+			
+			this.indice = 0;
+		} else if(this.ch == (int)' ' || this.ch == (int)'\n' || this.ch == (int)'\t') {
 			this.bufferAtivo = false;
 		} else {
 			this.bufferAtivo = true;
@@ -96,10 +106,10 @@ public class AnalisadorLexico {
 		// inicializa o buffer.
 		for(int i = 0; i < 100; i++)
 			this.buffer[i] = -1;
+		this.indice = 0;
 		
 		int classe; // Armazenará a saída do autômato para uma dada transição.
 		int chave; // Chave do Token na tabela correspondente à sua classe.
-		int indice = 0; // Indexa o buffer.
 		Token token; // Armazenará o token reconhecido.
 		int[] bufferMinimo;
 		
@@ -183,6 +193,18 @@ public class AnalisadorLexico {
 					}
 					
 					token = new Token(Token.CLASSE_NUMERO_INTEIRO, numero);
+					return token;
+				case Token.CLASSE_STRING:
+					bufferMinimo = ArrayHelper.alocarVetor(this.buffer);
+					
+					chave = TabelaSimbolos.recuperarChave(bufferMinimo);
+					
+					if(chave == -1) {
+						// Não está na tabela de símbolos.
+						chave = TabelaSimbolos.inserirSimbolo(bufferMinimo);
+					}
+					
+					token = new Token(Token.CLASSE_STRING, chave);
 					return token;
 			}
 			

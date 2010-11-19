@@ -54,7 +54,7 @@ public class Transdutor {
 	 * Carrega as tabela de transição de estados.
 	 */
 	private void carregaTabelaTransicao() {
-		this.estados = 6;
+		this.estados = 8;
 		this.tabelaTransicao = new int[this.estados][256];
 		
 		for(int i = 0; i < this.estados; i++) {
@@ -68,6 +68,10 @@ public class Transdutor {
 			this.tabelaTransicao[0][i] = 1;
 		}
 		
+		for(int i = (int)'a'; i <= (int)'z'; i++) {
+			this.tabelaTransicao[0][i] = 1;
+		}
+		
 		for(int i = (int)'0'; i <= (int)'9'; i++) {
 			this.tabelaTransicao[0][i] = 2;
 		}
@@ -77,19 +81,22 @@ public class Transdutor {
 		this.tabelaTransicao[0][(int)'\t'] = 0;
 		
 		this.tabelaTransicao[0][(int)';'] = 3;
-		this.tabelaTransicao[0][(int)':'] = 3;
+		this.tabelaTransicao[0][(int)','] = 3;
 		this.tabelaTransicao[0][(int)'+'] = 3;
 		this.tabelaTransicao[0][(int)'-'] = 3;
 		this.tabelaTransicao[0][(int)'*'] = 3;
 		this.tabelaTransicao[0][(int)'/'] = 3;
 		this.tabelaTransicao[0][(int)'('] = 3;
 		this.tabelaTransicao[0][(int)')'] = 3;
+		this.tabelaTransicao[0][(int)'{'] = 3;
+		this.tabelaTransicao[0][(int)'}'] = 3;
 		this.tabelaTransicao[0][(int)'.'] = 3;
 		this.tabelaTransicao[0][(int)'>'] = 3;
 		this.tabelaTransicao[0][(int)'='] = 3;
 		this.tabelaTransicao[0][(int)'<'] = 3;
+		this.tabelaTransicao[0][(int)'%'] = 3;
 		
-		this.tabelaTransicao[0][(int)'%'] = 4;
+		this.tabelaTransicao[0][(int)'"'] = 6;
 		
 		for(int i = 0; i < 256; i++) {
 			if(this.tabelaTransicao[0][i] == -1)
@@ -98,6 +105,10 @@ public class Transdutor {
 		
 		/* Transições do estado 1. */
 		for(int i = (int)'A'; i <= (int)'Z'; i++) {
+			this.tabelaTransicao[1][i] = 1;
+		}
+		
+		for(int i = (int)'a'; i <= (int)'z'; i++) {
 			this.tabelaTransicao[1][i] = 1;
 		}
 		
@@ -111,6 +122,7 @@ public class Transdutor {
 		}
 		
 		/* Transições do estado 3. */
+		this.tabelaTransicao[3][(int)'/'] = 4;
 		
 		/* Transições do estado 4. */
 		for(int i = 0; i < 256; i++) {
@@ -119,6 +131,16 @@ public class Transdutor {
 		this.tabelaTransicao[4][(int)'\n'] = 0;
 		
 		/* Transições do estado 5. */
+		
+		/* Transições do estado 6. */
+		for(int i = 0; i < 256; i++) {
+			this.tabelaTransicao[6][i] = 6;
+		}
+		
+		this.tabelaTransicao[6][(int)'"'] = 7;
+		
+		/* Transições do estado 7. */
+		
 	}
 	
 	/**
@@ -134,57 +156,8 @@ public class Transdutor {
 		this.tabelaClasses[1] = Token.CLASSE_IDENTIFICADOR;
 		this.tabelaClasses[2] = Token.CLASSE_NUMERO_INTEIRO;
 		this.tabelaClasses[3] = Token.CLASSE_CARACTER_ESPECIAL;
+		this.tabelaClasses[7] = Token.CLASSE_STRING;
 	}
-	
-	/**
-	 * Carrega a descrição do autômato presente no arquivo de entrada.
-	 * @param arquivo o caminho do arquivo.
-	 */
-	/*
-	private void carregaTabelaTransicao(String arquivo) throws IOException {
-		FileInputStream fileInputStream = null;
-		
-		try {
-			fileInputStream = new FileInputStream(new File(arquivo));
-			
-			int ch;
-			
-			// Carrega o número de estados.
-			ch = fileInputStream.read();
-			this.estados = Integer.parseInt(String.valueOf(ch));
-			
-			// Inicializa a tabela de transição.
-			this.tabelaTransicao = new int[this.estados][256];
-			
-			// Carrega a tabela de transição.
-			for(int i = 0; i < this.estados; i++)
-				for(int j = 0; j < 256; j++)
-					this.tabelaTransicao[i][j] = -1;
-			
-			int estadoAtual = -1; // Indica a linha da tabela de transição.
-			int proxEstado; // Indica a coluna da tabela de transição.
-			int entrada; // Entrada do autômato.
-			
-			while((ch = fileInputStream.read()) != -1) {	
-				if((char)ch == '\n') {
-					estadoAtual++;
-				} else if((char)ch != ' '){
-					entrada = ch;
-					fileInputStream.read(); // Lê o sinal de igual.
-					proxEstado = fileInputStream.read();
-					
-					this.tabelaTransicao[estadoAtual][entrada] = proxEstado;
-				}
-			}
-			
-		} catch(FileNotFoundException e) {
-			e.printStackTrace();
-		} finally {			
-			if(fileInputStream != null)
-				fileInputStream.close();
-		}
-	}
-	*/
 	
 	/**
 	 * Recebe uma entrada e executa uma transição no autômato.

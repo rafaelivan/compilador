@@ -1,5 +1,13 @@
-D = 1;
-IF(D > 0):
-% nada...
-ELSE:
-D = 5;
+int fn1 (int var) {
+	int a; // teste de comentario
+	a = 2*var;
+
+	return a;
+}
+
+main {
+	int b;
+	
+	b = fn1 (3);
+	write("ronaldo brilha muitu nu curintia" + zina);
+}

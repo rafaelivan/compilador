@@ -10,6 +10,7 @@ public class Token {
 	public static final int CLASSE_CARACTER_ESPECIAL = 3;
 	public static final int CLASSE_NUMERO_INTEIRO = 4;
 	public static final int CLASSE_OUTROS_CARACTERES = 5;
+	public static final int CLASSE_STRING = 6;
 	// TODO: Adicionar as classes que faltarem quando definirmos a linguagem.
 	
 	/**
