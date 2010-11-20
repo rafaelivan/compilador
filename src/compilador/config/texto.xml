@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<structure>
+  <type>fa</type>
+  <state name="q0" id="0">
+    <initial/>
+  </state>
+  <state name="q1" id="1">
+    <final/>
+  </state>
+  <state name="q2" id="2">
+    <final/>
+  </state>
+  <state name="q3" id="3">
+  </state>
+  <state name="q4" id="4">
+  </state>
+  <state name="q5" id="5">
+  </state>
+  <state name="q6" id="6">
+  </state>
+  <state name="q7" id="7">
+  </state>
+  <state name="q8" id="8">
+  </state>
+  <state name="q9" id="9">
+  </state>
+  <state name="q10" id="10">
+  </state>
+  <state name="q11" id="11">
+  </state>
+  <state name="q12" id="12">
+  </state>
+  <state name="q13" id="13">
+  </state>
+  <state name="q14" id="14">
+  </state>
+  <state name="q15" id="15">
+  </state>
+  <state name="q16" id="16">
+  </state>
+  <state name="q17" id="17">
+  </state>
+  <state name="q18" id="18">
+  </state>
+  <state name="q19" id="19">
+  </state>
+  <state name="q20" id="20">
+    <final/>
+  </state>
+  <state name="q21" id="21">
+  </state>
+  <state name="q22" id="22">
+  </state>
+  <transition>
+    <from>16</from>
+    <to>17</to>
+    <read>expressao</read>
+  </transition>
+  <transition>
+    <from>5</from>
+    <to>3</to>
+    <read>&quot;int&quot;</read>
+  </transition>
+  <transition>
+    <from>5</from>
+    <to>3</to>
+    <read>&quot;char&quot;</read>
+  </transition>
+  <transition>
+    <from>5</from>
+    <to>3</to>
+    <read>&quot;boolean&quot;</read>
+  </transition>
+  <transition>
+    <from>5</from>
+    <to>6</to>
+    <read>&quot;struct&quot;</read>
+  </transition>
+  <transition>
+    <from>22</from>
+    <to>1</to>
+    <read>&quot;]&quot;</read>
+  </transition>
+  <transition>
+    <from>0</from>
+    <to>1</to>
+    <read>string</read>
+  </transition>
+  <transition>
+    <from>0</from>
+    <to>2</to>
+    <read>&quot;id&quot;</read>
+  </transition>
+  <transition>
+    <from>0</from>
+    <to>3</to>
+    <read>&quot;void&quot;</read>
+  </transition>
+  <transition>
+    <from>0</from>
+    <to>3</to>
+    <read>&quot;int&quot;</read>
+  </transition>
+  <transition>
+    <from>0</from>
+    <to>3</to>
+    <read>&quot;char&quot;</read>
+  </transition>
+  <transition>
+    <from>0</from>
+    <to>3</to>
+    <read>&quot;boolean&quot;</read>
+  </transition>
+  <transition>
+    <from>0</from>
+    <to>4</to>
+    <read>&quot;typedef&quot;</read>
+  </transition>
+  <transition>
+    <from>11</from>
+    <to>12</to>
+    <read>parametros</read>
+  </transition>
+  <transition>
+    <from>17</from>
+    <to>1</to>
+    <read>&quot;}&quot;</read>
+  </transition>
+  <transition>
+    <from>6</from>
+    <to>7</to>
+    <read>&quot;id&quot;</read>
+  </transition>
+  <transition>
+    <from>12</from>
+    <to>13</to>
+    <read>&quot;)&quot;</read>
+  </transition>
+  <transition>
+    <from>1</from>
+    <to>0</to>
+    <read>&quot;+&quot;</read>
+  </transition>
+  <transition>
+    <from>18</from>
+    <to>19</to>
+    <read>&quot;inteiro&quot;</read>
+  </transition>
+  <transition>
+    <from>7</from>
+    <to>8</to>
+    <read>&quot;{&quot;</read>
+  </transition>
+  <transition>
+    <from>2</from>
+    <to>18</to>
+    <read>&quot;[&quot;</read>
+  </transition>
+  <transition>
+    <from>2</from>
+    <to>0</to>
+    <read>&quot;+&quot;</read>
+  </transition>
+  <transition>
+    <from>13</from>
+    <to>14</to>
+    <read>&quot;{&quot;</read>
+  </transition>
+  <transition>
+    <from>19</from>
+    <to>20</to>
+    <read>&quot;]&quot;</read>
+  </transition>
+  <transition>
+    <from>8</from>
+    <to>9</to>
+    <read>declaracoes</read>
+  </transition>
+  <transition>
+    <from>3</from>
+    <to>10</to>
+    <read>&quot;id&quot;</read>
+  </transition>
+  <transition>
+    <from>14</from>
+    <to>15</to>
+    <read>declaracoes</read>
+  </transition>
+  <transition>
+    <from>14</from>
+    <to>15</to>
+    <read>comandos</read>
+  </transition>
+  <transition>
+    <from>14</from>
+    <to>16</to>
+    <read>&quot;return&quot;</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>3</to>
+    <read>&quot;}&quot;</read>
+  </transition>
+  <transition>
+    <from>20</from>
+    <to>21</to>
+    <read>&quot;[&quot;</read>
+  </transition>
+  <transition>
+    <from>20</from>
+    <to>0</to>
+    <read>&quot;+&quot;</read>
+  </transition>
+  <transition>
+    <from>15</from>
+    <to>16</to>
+    <read>&quot;return&quot;</read>
+  </transition>
+  <transition>
+    <from>4</from>
+    <to>5</to>
+    <read>&quot;id&quot;</read>
+  </transition>
+  <transition>
+    <from>10</from>
+    <to>11</to>
+    <read>&quot;(&quot;</read>
+  </transition>
+  <transition>
+    <from>21</from>
+    <to>22</to>
+    <read>&quot;inteiro&quot;</read>
+  </transition>
+</structure>

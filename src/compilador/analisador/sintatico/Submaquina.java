@@ -27,11 +27,17 @@ public class Submaquina {
 	 */
 	private int[][][] tabelaTransicao;
 	
-	public Submaquina(int estadoInicial, int[] estadosFinais, int[][][] tabelaTransicao) {
+	/**
+	 * Tabela com a relação de quais submáquinas podem ser chamadas em cada estado.
+	 */
+	private int[][] tabelaChamadaSubmaquinas;
+	
+	public Submaquina(int estadoInicial, int[] estadosFinais, int[][][] tabelaTransicao, int[][] tabelaChamadaSubmaquinas) {
 		this.estadoInicial = this.estadoAtual = estadoInicial;
 		this.estadosFinais = estadosFinais;
 		this.tabelaTransicao = tabelaTransicao;
 		this.numeroEstados = this.tabelaTransicao.length;
+		this.tabelaChamadaSubmaquinas = tabelaChamadaSubmaquinas;
 	}
 	
 }

@@ -52,4 +52,25 @@ public class ArrayHelper {
 		
 		return true;
 	}
+	
+	/**
+	 * Compara dois vetores de chars.
+	 * 
+	 * @param vetor1
+	 * @param vetor2
+	 * @return <code>true</code>, caso os vetores sejam iguais. <code>false</code>, caso contr‡rio.
+	 */
+	public static boolean compararVetoresChar(char[] vetor1, char[] vetor2) {
+		// Transforma o primeiro vetor.
+		int[] v1 = new int[vetor1.length];
+		for(int i = 0; i < v1.length; i++)
+			v1[i] = (int)vetor1[i];
+		
+		// Transforma o segundo vetor.
+		int[] v2 = new int[vetor2.length];
+		for(int i = 0; i < v2.length; i++)
+			v2[i] = (int)vetor2[i];
+		
+		return ArrayHelper.compararVetoresInt(v1, v2);
+	}
 }
