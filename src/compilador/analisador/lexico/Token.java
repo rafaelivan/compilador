@@ -31,7 +31,7 @@ public class Token {
 	}
 
 	public int getClasse() {
-		return classe;
+		return this.classe;
 	}
 
 	public int getID() {
