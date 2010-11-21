@@ -25,6 +25,15 @@ public class No<T> {
 	}
 	
 	/**
+	 * Seta o pr—ximo <code>No</code>.
+	 * 
+	 * @param proximo
+	 */
+	public void setProximo(No<T> proximo) {
+		this.proximo = proximo;
+	}
+	
+	/**
 	 * @return o valor armazenado por este <code>No</code>.
 	 */
 	public T getValor() {

@@ -35,6 +35,11 @@ public class String {
 		for(int i = 0; i < this.chars.length; i++)
 			System.out.print(this.chars[i]);
 	}
+	
+	public void imprimirln() {
+		this.imprimir();
+		System.out.println();
+	}
 		
 	@Override
 	public boolean equals(Object obj) {

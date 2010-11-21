@@ -110,9 +110,4 @@ public class Mapa<C, V> {
 			}
 		}
 	}
-	
-	public static void main(String[] args) {
-		System.out.println("teste");
-	}
-	
 }

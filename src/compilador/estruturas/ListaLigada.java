@@ -46,6 +46,32 @@ public class ListaLigada<T> {
 	}
 	
 	/**
+	 * Remove um item da lista ligada.
+	 * 
+	 * @param indice o ’ndice do item a ser removido.
+	 * @return <code>true</code>, caso o item foi removido. <code>false</code>, caso contr‡rio.
+	 */
+	public boolean remove(int indice) {
+		if(indice >= this.tamanho)
+			return false;
+		
+		if(indice == 0) {
+			this.inicio = this.inicio.proximo();
+			this.tamanho--;
+			return true;
+		}
+		
+		No<T> no = this.inicio;
+		for(int i = 0; i < indice - 1; i++)
+			no = no.proximo();
+		
+		no.setProximo(no.proximo().proximo());
+		this.tamanho--;
+		
+		return true;
+	}
+	
+	/**
 	 * Retorna a posi‹o da primeira ocorrncia do item especificado.
 	 * @param item
 	 * @return a posi‹o encontrada ou -1 caso o item n‹o esteja na lista ligada. 

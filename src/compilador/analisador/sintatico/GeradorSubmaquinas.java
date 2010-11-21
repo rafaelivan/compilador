@@ -1,6 +1,7 @@
 package compilador.analisador.sintatico;
 
 import java.io.File;
+import java.lang.reflect.Array;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -10,7 +11,6 @@ import org.w3c.dom.NodeList;
 
 import compilador.analisador.lexico.Token;
 import compilador.analisador.semantico.TabelaPalavrasReservadas;
-import compilador.estruturas.ListaLigada;
 import compilador.estruturas.Mapa;
 import compilador.helper.ArrayHelper;
 
@@ -20,7 +20,7 @@ public class GeradorSubmaquinas {
 	private DocumentBuilder db;
 	private Document doc;
 	
-	Mapa<compilador.estruturas.String, Integer> submaquinas;
+	private Mapa<compilador.estruturas.String, Integer> submaquinas;
 	
 	
 	public GeradorSubmaquinas(Mapa<compilador.estruturas.String, Integer> submaquinas) {
@@ -42,7 +42,19 @@ public class GeradorSubmaquinas {
 	}
 	
 	public Submaquina gerarSubmaquina() {
-		return new Submaquina(this.estadoInicial(), this.estadosFinais(), this.tabelaTransicao(), this.tabelaChamadaSubmaquinas());
+		return new Submaquina(this.nomeSubmaquina(), this.estadoInicial(), this.estadosFinais(), this.tabelaTransicao(), this.tabelaChamadaSubmaquinas());
+	}
+	
+	private compilador.estruturas.String nomeSubmaquina() {
+		NodeList nodeList = doc.getElementsByTagName("name");
+		String nome = nodeList.item(0).getChildNodes().item(0).getNodeValue();
+		
+		Integer idSubmaquina = this.submaquinas.get(new compilador.estruturas.String(nome.toCharArray()));
+		if(idSubmaquina == null) {
+			this.submaquinas.put(new compilador.estruturas.String(nome.toCharArray()), this.submaquinas.tamanho());
+		}
+		
+		return new compilador.estruturas.String(nome.toCharArray());
 	}
 	
 	private int estadoInicial() {
@@ -75,6 +87,11 @@ public class GeradorSubmaquinas {
 		NodeList nodeList = doc.getElementsByTagName("state");
 		
 		int[][][] tabelaTransicao = new int[nodeList.getLength()][7][256]; // 7 = total de classe de tokens - 16 = m‡ximo de palavras reservadas
+		for(int i = 0; i < tabelaTransicao.length; i++)
+			for(int j = 0; j < tabelaTransicao[i].length; j++)
+				for(int k = 0; k < tabelaTransicao[i][j].length; k++)
+					tabelaTransicao[i][j][k] = -1;
+		
 		int estadoOrigem = -1;
 		int estadoDestino = -1;
 		int classeToken = -1;
@@ -133,6 +150,10 @@ public class GeradorSubmaquinas {
 		NodeList nodeList = doc.getElementsByTagName("state");
 		
 		int[][] tabelaChamadaSubmaquina = new int[nodeList.getLength()][10];
+		for(int i = 0; i < tabelaChamadaSubmaquina.length; i++)
+			for(int j = 0; j < tabelaChamadaSubmaquina[i].length; j++)
+				tabelaChamadaSubmaquina[i][j] = -1;
+		
 		int estadoOrigem = -1;
 		int estadoDestino = -1;
 		Integer idSubmaquina = -1;
@@ -155,6 +176,7 @@ public class GeradorSubmaquinas {
 					if(!valor.startsWith("\"")) {
 						// Chamada de subm‡quina.
 						idSubmaquina = submaquinas.get(new compilador.estruturas.String(valor.toCharArray()));
+
 						
 						if(idSubmaquina == null) {
 							idSubmaquina = submaquinas.chaves().tamanho();
@@ -171,18 +193,17 @@ public class GeradorSubmaquinas {
 	}
 	
 	public void teste() {
-		this.tabelaChamadaSubmaquinas();
+		NodeList nodeList = doc.getElementsByTagName("name");
 		
-		ListaLigada<compilador.estruturas.String> li = this.submaquinas.chaves();
-		
-		for(int i = 0; i < li.tamanho(); i++) {
-			compilador.estruturas.String chave = li.get(i);
-			chave.imprimir();
-			System.out.println(" - " + submaquinas.get(chave));
-		}
+		String nome = nodeList.item(0).getChildNodes().item(0).getNodeValue();
+		System.out.println(nome);
 	}
 	
 	public static void main(String[] args) {
-		AutomatoPilhaEstruturado ape = new AutomatoPilhaEstruturado();
-	}
+		Mapa<compilador.estruturas.String, Integer> mapa = new Mapa<compilador.estruturas.String, Integer>();
+		
+		GeradorSubmaquinas ge = new GeradorSubmaquinas(mapa);
+		ge.parseXML("src/compilador/config/programa.xml");
+		ge.teste();	
+	}	
 }
