@@ -84,7 +84,16 @@ public class Submaquina {
 	 */
 	public int getEstadoAtual() {
 		return this.estadoAtual;
-	}	
+	}
+	
+	/**
+	 * Seta o estado atual da sumáquina.
+	 * 
+	 * @param estadoAutal
+	 */
+	public void setEstadoAtual(int estadoAutal) {
+		this.estadoAtual = estadoAutal;
+	}
 	
 	/**
 	 * Executa uma transição na submáquina.
@@ -136,6 +145,23 @@ public class Submaquina {
 		
 		if(proximoEstado == ESTADO_INVALIDO)
 			return false;
+		return true;
+	}
+	
+	/**
+	 * Executa uma transição de estado baseada em chamada de submáquina.
+	 * Não chama efetivamente outra submáquina, apenas verifica a possibilidade e muda para o estado de retorno.
+	 * 
+	 * @param idSubmaquina
+	 * @return 
+	 */
+	public boolean chamarSubmaquina(int idSubmaquina) {
+		int proximoEstado = this.tabelaChamadaSubmaquinas[this.estadoAtual][idSubmaquina];
+		
+		if(proximoEstado == ESTADO_INVALIDO)
+			return false;
+		
+		this.estadoAtual = proximoEstado;
 		return true;
 	}
 }

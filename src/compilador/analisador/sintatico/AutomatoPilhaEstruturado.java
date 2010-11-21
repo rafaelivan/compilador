@@ -1,13 +1,10 @@
 package compilador.analisador.sintatico;
 
 import compilador.analisador.lexico.Token;
-import compilador.analisador.semantico.TabelaPalavrasReservadas;
-import compilador.analisador.semantico.TabelaSimbolos;
 import compilador.estruturas.ListaLigada;
 import compilador.estruturas.Mapa;
 import compilador.estruturas.Pilha;
 import compilador.estruturas.String;
-import compilador.helper.ArrayHelper;
 
 public class AutomatoPilhaEstruturado {
 	
@@ -56,25 +53,43 @@ public class AutomatoPilhaEstruturado {
 	 * @param token o token a ser consumido.
 	 */
 	public void consumirToken(Token token) {
+		System.out.print("Submaquina: ");
 		this.submaquinaAtual.getNome().imprimirln();
 		System.out.println("Estado Atual: " + this.estadoAtual);
 		System.out.println("Token.classe: " + token.getClasse());
 		System.out.println("Token.id: " + token.getID());
-		System.out.println();
 		
 		int statusTransicao = this.submaquinaAtual.transicao(token);
 		
 		if(statusTransicao == Submaquina.TRANSICAO_OK) {
+			
 			this.estadoAtual = this.submaquinaAtual.getEstadoAtual();
+			
 		} else if(statusTransicao == Submaquina.TRANSICAO_CHAMADA_SUBMAQUINA) {
+			
 			ListaLigada<Integer> possiveisSubmaquinas = this.submaquinaAtual.possiveisSubmaquinas(token);
 			
 			// Verfica as transições das submáquinas com base no token.
 			ListaLigada<Integer> submaquinasComTransicao = new ListaLigada<Integer>();
-			for(int i = 0; i < possiveisSubmaquinas.tamanho(); i++) {
-				if(this.submaquinas[possiveisSubmaquinas.get(i)].haTransicao(token)) {
-					submaquinasComTransicao.put(i);
-				}
+			for(int i = 0; i < possiveisSubmaquinas.tamanho(); i++)
+				if(this.submaquinas[possiveisSubmaquinas.get(i)].haTransicao(token))
+					submaquinasComTransicao.put(possiveisSubmaquinas.get(i));
+			
+			// TODO: chamar a submáquina correta. Por enquanto enquanto a primeira é sempre chamada.
+			Integer idSubmaquina = submaquinasComTransicao.get(0);
+			if(idSubmaquina != null && this.submaquinaAtual.chamarSubmaquina(idSubmaquina)){
+				// Empilha a situação atual.
+				this.estadoAtual = this.submaquinaAtual.getEstadoAtual();
+				Par par = new Par(this.submaquinaAtual, this.estadoAtual);
+				this.pilha.push(par);
+				
+				// Chama a outra submáquina.
+				this.submaquinaAtual = this.submaquinas[idSubmaquina];
+				this.submaquinaAtual.setEstadoAtual(this.submaquinaAtual.getEstadoInicial());
+				this.estadoAtual = this.submaquinaAtual.getEstadoAtual();
+				
+				// Chamada recursiva.
+				this.consumirToken(token);
 			}
 		}
 		
@@ -182,13 +197,9 @@ public class AutomatoPilhaEstruturado {
 		for(int i = 0; i < chaves.tamanho(); i++) {
 			String chave = chaves.get(i);
 			
-			for(int j = 0; j < this.submaquinas.length; j++) {
-				if(this.submaquinas[j] != null && this.submaquinas[j].getNome().equals(chave)) {
+			for(int j = 0; j < this.submaquinas.length; j++)
+				if(this.submaquinas[j] != null && this.submaquinas[j].getNome().equals(chave))
 					temporario[mapa.get(chave).intValue()] = this.submaquinas[j];
-				}
-			}
-			
-			
 		}
 		
 		this.submaquinas = temporario;

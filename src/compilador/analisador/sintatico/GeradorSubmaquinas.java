@@ -116,13 +116,18 @@ public class GeradorSubmaquinas {
 						
 						if(valor.equals("\"id\"")) {
 							classeToken = Token.CLASSE_IDENTIFICADOR;
-							valorToken = 0;
+							
+							for(int k = 0; k < tabelaTransicao[estadoOrigem][classeToken].length; k++)
+								tabelaTransicao[estadoOrigem][classeToken][k] = estadoDestino;
 						} else if(valor.equals("\"inteiro\"")) {
 							classeToken = Token.CLASSE_NUMERO_INTEIRO;
-							valorToken = 0;
+							
+							for(int k = 0; k < tabelaTransicao[estadoOrigem][classeToken].length; k++)
+								tabelaTransicao[estadoOrigem][classeToken][k] = estadoDestino;
 						} else if(valor.length() == 3) {
 							classeToken = Token.CLASSE_CARACTER_ESPECIAL;
 							valorToken = (int)valor.charAt(1);
+							tabelaTransicao[estadoOrigem][classeToken][valorToken] = estadoDestino;
 						} else {
 							char[] charArray = valor.substring(1, valor.length() - 1).toCharArray();
 							int[] aux = new int[charArray.length];
@@ -135,9 +140,9 @@ public class GeradorSubmaquinas {
 								classeToken = Token.CLASSE_PALAVRA_RESERVADA;
 								valorToken = chave;
 							}
+							
+							tabelaTransicao[estadoOrigem][classeToken][valorToken] = estadoDestino;
 						}
-						
-						tabelaTransicao[estadoOrigem][classeToken][valorToken] = estadoDestino;
 					}	
 				}
 			}
