@@ -73,4 +73,19 @@ public class ArrayHelper {
 		
 		return ArrayHelper.compararVetoresInt(v1, v2);
 	}
+	
+	/**
+	 * Verifica se um elemento est‡ em um vetor.
+	 * 
+	 * @param vetor
+	 * @param elemento
+	 * @return <code>true</code>, caso o elemento esteja no vetor. <code>false</code>, caso contr‡rio.
+	 */
+	public static boolean elementoNoVetor(int[] vetor, int elemento) {
+		for(int i = 0; i < vetor.length; i++)
+			if(elemento == vetor[i])
+				return true;
+		
+		return false;
+	}
 }

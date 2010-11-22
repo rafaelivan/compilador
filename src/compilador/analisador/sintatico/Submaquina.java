@@ -17,9 +17,9 @@ public class Submaquina {
 	public static final int TRANSICAO_OK = 10;
 	
 	/**
-	 * Indica que a transição é de chamada de submáquina.
+	 * Indica que a transição normal falhou. Deve ocorrer então um retorno ou chamada de submáquina.
 	 */
-	public static final int TRANSICAO_CHAMADA_SUBMAQUINA = 11;
+	public static final int TRANSICAO_FALHOU = 11;
 	
 	/**
 	 * O nome da submáquina.
@@ -80,6 +80,13 @@ public class Submaquina {
 	}
 	
 	/**
+	 * @return o array de estados finais.
+	 */
+	public int[] getEstadosFinais() {
+		return this.estadosFinais;
+	}
+	
+	/**
 	 * @return o estado atual da submáquina.
 	 */
 	public int getEstadoAtual() {
@@ -89,10 +96,10 @@ public class Submaquina {
 	/**
 	 * Seta o estado atual da sumáquina.
 	 * 
-	 * @param estadoAutal
+	 * @param estadoAtual
 	 */
-	public void setEstadoAtual(int estadoAutal) {
-		this.estadoAtual = estadoAutal;
+	public void setEstadoAtual(int estadoAtual) {
+		this.estadoAtual = estadoAtual;
 	}
 	
 	/**
@@ -109,7 +116,7 @@ public class Submaquina {
 		
 		if(proximoEstado == ESTADO_INVALIDO) {
 			// Deve tentar chamar uma submáquina.
-			return TRANSICAO_CHAMADA_SUBMAQUINA;
+			return TRANSICAO_FALHOU;
 		} else {
 			// Há transição disponível.
 			this.estadoAtual = proximoEstado;
