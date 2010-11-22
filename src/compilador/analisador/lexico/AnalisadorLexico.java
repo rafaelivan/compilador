@@ -158,13 +158,13 @@ public class AnalisadorLexico {
 				case Token.CLASSE_PALAVRA_RESERVADA:
 					bufferMinimo = ArrayHelper.alocarVetor(this.buffer);
 					
-					chave = TabelaPalavrasReservadas.recuperarChave(bufferMinimo);
+					chave = TabelaPalavrasReservadas.getInstance().recuperarChave(bufferMinimo);
 					token = new Token(Token.CLASSE_PALAVRA_RESERVADA, chave);
 					return token;
 				case Token.CLASSE_IDENTIFICADOR:
 					bufferMinimo = ArrayHelper.alocarVetor(this.buffer);
 					
-					chave = TabelaPalavrasReservadas.recuperarChave(bufferMinimo);
+					chave = TabelaPalavrasReservadas.getInstance().recuperarChave(bufferMinimo);
 					
 					if(chave == -1) {
 						// N‹o est‡ na tabela de palavras reservadas.

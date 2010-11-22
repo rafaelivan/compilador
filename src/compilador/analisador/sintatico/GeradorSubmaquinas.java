@@ -1,7 +1,6 @@
 package compilador.analisador.sintatico;
 
 import java.io.File;
-import java.lang.reflect.Array;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -135,7 +134,7 @@ public class GeradorSubmaquinas {
 								aux[k] = (int)charArray[k];
 							}
 							
-							int chave = TabelaPalavrasReservadas.recuperarChave(aux); 
+							int chave = TabelaPalavrasReservadas.getInstance().recuperarChave(aux); 
 							if(chave != -1) {
 								classeToken = Token.CLASSE_PALAVRA_RESERVADA;
 								valorToken = chave;
