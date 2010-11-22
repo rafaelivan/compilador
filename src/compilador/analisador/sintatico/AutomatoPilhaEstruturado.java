@@ -108,9 +108,8 @@ public class AutomatoPilhaEstruturado {
 		// Verfica as transições das submáquinas com base no token.
 		ListaLigada<Integer> submaquinasComTransicao = new ListaLigada<Integer>();
 		for(int i = 0; i < possiveisSubmaquinas.tamanho(); i++)
-			if(this.submaquinas[possiveisSubmaquinas.get(i)].haTransicao(token))
+			if(this.submaquinas[possiveisSubmaquinas.get(i)].haTransicao(token) || this.submaquinas[possiveisSubmaquinas.get(i)].haChamadaSubmaquina())
 				submaquinasComTransicao.put(possiveisSubmaquinas.get(i));
-		// TODO: submáquinas recursivas.
 		
 		// TODO: chamar a submáquina correta. Por enquanto enquanto a primeira é sempre chamada.
 		Integer idSubmaquina = submaquinasComTransicao.get(0);
@@ -144,9 +143,11 @@ public class AutomatoPilhaEstruturado {
 		
 		// Verifica se o estado atual é final.
 		if(ArrayHelper.elementoNoVetor(this.submaquinaAtual.getEstadosFinais(), this.submaquinaAtual.getEstadoAtual())) {
+			// Volta a submáquina que terminou a execução para o estado inicial.
+			this.submaquinaAtual.setEstadoAtual(this.submaquinaAtual.getEstadoInicial());
+			
 			// Desempilha a situação para a qual o retorno será feito.
 			Par par = this.pilha.pop();
-			
 			this.submaquinaAtual = par.getSubmaquina();
 			this.estadoAtual = par.getEstado();
 			this.submaquinaAtual.setEstadoAtual(this.estadoAtual);

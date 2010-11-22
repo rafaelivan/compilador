@@ -42,11 +42,6 @@ public class Submaquina {
 	private int estadoAtual;
 	
 	/**
-	 * Número de estados da submáquina.
-	 */
-	private int numeroEstados;
-	
-	/**
 	 * Tabela de transição de estados da submáquina.
 	 */
 	private int[][][] tabelaTransicao;
@@ -61,7 +56,6 @@ public class Submaquina {
 		this.estadoInicial = this.estadoAtual = estadoInicial;
 		this.estadosFinais = estadosFinais;
 		this.tabelaTransicao = tabelaTransicao;
-		this.numeroEstados = this.tabelaTransicao.length;
 		this.tabelaChamadaSubmaquinas = tabelaChamadaSubmaquinas;
 	}
 	
@@ -142,7 +136,7 @@ public class Submaquina {
 	}
 	
 	/**
-	 * Verifica se a submáquina possui transição para o token dado.
+	 * Verifica se a submáquina possui transição no estado atual para o token dado.
 	 * 
 	 * @param token 
 	 * @return <code>true</code>, caso exista a transição. <code>false</code>, caso não exista.
@@ -156,11 +150,24 @@ public class Submaquina {
 	}
 	
 	/**
+	 * Verifica se a submáquina possui, no estado atual, chamada de outra submáquina.
+	 * 
+	 * @return <code>true</code>, caso exista a chamada. <code>false</code>, caso não exista.
+	 */
+	public boolean haChamadaSubmaquina() {
+		for(int i = 0; i < this.tabelaChamadaSubmaquinas[this.estadoAtual].length; i++)
+			if(this.tabelaChamadaSubmaquinas[this.estadoAtual][i] != ESTADO_INVALIDO)
+				return true;
+		
+		return false;
+	}
+	
+	/**
 	 * Executa uma transição de estado baseada em chamada de submáquina.
 	 * Não chama efetivamente outra submáquina, apenas verifica a possibilidade e muda para o estado de retorno.
 	 * 
 	 * @param idSubmaquina
-	 * @return 
+	 * @return <code>true</code>, caso seja possivel chamar a submáquina. <code>false</code>, caso não exista.
 	 */
 	public boolean chamarSubmaquina(int idSubmaquina) {
 		int proximoEstado = this.tabelaChamadaSubmaquinas[this.estadoAtual][idSubmaquina];
