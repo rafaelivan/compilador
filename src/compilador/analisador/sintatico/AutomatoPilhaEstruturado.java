@@ -54,11 +54,10 @@ public class AutomatoPilhaEstruturado {
 	 * @param token o token a ser consumido.
 	 */
 	public void consumirToken(Token token) {
-		System.out.print("Submaquina: ");
-		this.submaquinaAtual.getNome().imprimirln();
-		System.out.println("Estado Atual: " + this.estadoAtual);
-		System.out.println("Token.classe: " + token.getClasse());
-		System.out.println("Token.id: " + token.getID());
+//		this.submaquinaAtual.getNome().imprimirln();
+//		System.out.println("Estado Atual: " + this.estadoAtual);
+//		System.out.println("Token.classe: " + token.getClasse());
+//		System.out.println("Token.id: " + token.getID());
 		
 		int statusTransicao = this.submaquinaAtual.transicao(token);
 		
@@ -73,7 +72,10 @@ public class AutomatoPilhaEstruturado {
 				// Se não for possível chamar outra submáquina. 
 				if(!this.retornarParaSubmaquina(token)) {
 					// Se não for possível retornar.
-					System.out.println("Não foi possível chamar outra submáquina ou retornar.");
+					System.out.println("Token inesperado.\nToken.classe: " + token.getClasse());
+					System.out.println("Token.ID: " + token.getID());
+					System.out.println("Linha: " + token.getLinha());
+					System.out.println("Coluna: " + token.getColuna() + "\n");
 				}
 			}
 		}
@@ -158,6 +160,19 @@ public class AutomatoPilhaEstruturado {
 		}
 		
 		return statusRetorno;
+	}
+	
+	/**
+	 * Verifica se o APE está no estado de aceitação da submáquina principal.
+	 * 
+	 * @return <code>true<code> caso esteja no estado de aceitação da submáquina principal. <code>false</code>, caso contrário.
+	 */
+	public boolean estaNoEstadoAceitacao() {
+		if(this.submaquinaAtual.getNome().equals(SUBMAQUINA_INICIAL) 
+				&& ArrayHelper.elementoNoVetor(this.submaquinaAtual.getEstadosFinais(), this.submaquinaAtual.getEstadoAtual()))
+			return true;
+		
+		return false;
 	}
 	
 	/**

@@ -26,7 +26,12 @@ public class AnalisadorSintatico {
 		ape = new AutomatoPilhaEstruturado();
 	}
 	
-	public void teste() {
+	/**
+	 * Processa o c—digo fonte.
+	 * 
+	 * @return <code>true</code> caso o c—digo-fonte esteja sintaticamente correto. <code>false</code> caso contr‡rio.
+	 */
+	public boolean processarCodigoFonte() { 
 		try{
 			Token token;
 			
@@ -37,11 +42,17 @@ public class AnalisadorSintatico {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+		
+		return this.ape.estaNoEstadoAceitacao();
 	}
 	
 	public static void main(String[] args) {
 		AnalisadorSintatico sintatico = new AnalisadorSintatico();
-		sintatico.teste();
+		boolean resultado = sintatico.processarCodigoFonte();
+		
+		if(resultado)
+			System.out.println("RESULTADO: O programa esta sintaticamente correto.");
+		else
+			System.out.println("RESULTADO: O programa nao esta sintaticamente correto.");
 	}
-	
 }

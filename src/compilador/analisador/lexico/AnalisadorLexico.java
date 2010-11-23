@@ -52,6 +52,16 @@ public class AnalisadorLexico {
 	private FileInputStream arquivoCondigoFonte;
 	
 	/**
+	 * A linha atualmente em processamento no arquivo do código-fonte.
+	 */
+	private int linha;
+	
+	/**
+	 * A coluna atualmente em processamento no arquivo do código-fonte
+	 */
+	private int coluna;
+	
+	/**
 	 * Indica se o final do arquivo foi atingido.
 	 */
 	private boolean finalDoArquivo;
@@ -65,6 +75,8 @@ public class AnalisadorLexico {
 		this.indice = 0;
 		this.ch = -1;
 		this.lookahead = -1;
+		this.linha = 1;
+		this.coluna = 1;
 	}
 	
 	/**
@@ -112,6 +124,7 @@ public class AnalisadorLexico {
 		int chave; // Chave do Token na tabela correspondente à sua classe.
 		Token token; // Armazenará o token reconhecido.
 		int[] bufferMinimo;
+		int colunaToken = this.coluna;
 		
 		// Coloca o primeiro carater no lookahead, pois ainda não iniciou o processamento.
 		// Executa somente na primeira vez.
@@ -137,6 +150,20 @@ public class AnalisadorLexico {
 				
 				if(this.lookahead == -1)
 					this.finalDoArquivo = true;
+				
+				// Incrementa o contador de linhas.
+				if(this.ch == (int)'\n') {
+					this.linha++;
+					this.coluna = 1;
+				}
+				
+				// Incrementa o número de colunas.
+				if(this.ch == (int)'\t')
+					this.coluna += 4;
+				else if(this.ch >= 11)
+					this.coluna++;
+				
+//				System.out.println((char)this.ch + " - linha: " + this.linha + " - coluna: " + colunaToken);
 			}
 			
 			// Executa uma transição no autômato.
@@ -160,6 +187,8 @@ public class AnalisadorLexico {
 					
 					chave = TabelaPalavrasReservadas.getInstance().recuperarChave(bufferMinimo);
 					token = new Token(Token.CLASSE_PALAVRA_RESERVADA, chave);
+					token.setLinha(this.linha);
+					token.setColuna(colunaToken);
 					return token;
 				case Token.CLASSE_IDENTIFICADOR:
 					bufferMinimo = ArrayHelper.alocarVetor(this.buffer);
@@ -176,14 +205,20 @@ public class AnalisadorLexico {
 						}
 						
 						token = new Token(Token.CLASSE_IDENTIFICADOR, chave);
+						token.setLinha(this.linha);
+						token.setColuna(colunaToken);
 					} else {
 						// É uma palavra reservada.
 						token = new Token(Token.CLASSE_PALAVRA_RESERVADA, chave);
+						token.setLinha(this.linha);
+						token.setColuna(colunaToken);
 					}
 					
 					return token;
 				case Token.CLASSE_CARACTER_ESPECIAL:
 					token = new Token(Token.CLASSE_CARACTER_ESPECIAL, this.buffer[0]);
+					token.setLinha(this.linha);
+					token.setColuna(colunaToken);
 					return token;
 				case Token.CLASSE_NUMERO_INTEIRO:
 					int numero = 0;
@@ -193,6 +228,8 @@ public class AnalisadorLexico {
 					}
 					
 					token = new Token(Token.CLASSE_NUMERO_INTEIRO, numero);
+					token.setLinha(this.linha);
+					token.setColuna(colunaToken);
 					return token;
 				case Token.CLASSE_STRING:
 					bufferMinimo = ArrayHelper.alocarVetor(this.buffer);
@@ -205,6 +242,8 @@ public class AnalisadorLexico {
 					}
 					
 					token = new Token(Token.CLASSE_STRING, chave);
+					token.setLinha(this.linha);
+					token.setColuna(colunaToken);
 					return token;
 			}
 			
