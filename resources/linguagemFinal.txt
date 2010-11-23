@@ -1,0 +1,56 @@
+programa = funcoes main .
+main = "main" "{" escopo "}" .
+
+variavel = id{"." id} | vetor | matriz .
+vetor = id "[" inteiro "]" .
+matriz = id "[" inteiro "]" "[" inteiro "]" .
+
+id = letra  {letra | digito} .
+letra = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" .
+digito = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" .
+inteiro = digito {digito} .
+caracter = letra | digito | "+" | "-" | "=" | "*" | "/" .
+caracteres = caracter {caracter} .
+
+funcoes = [funcao {funcao}] .
+funcao = tipoRetorno id "(" parametros ")" "{" escopo "}" .
+tipoRetorno = "void" | tipo .
+parametros = [tipo variavel {"," tipo variavel}] .
+argumentos = (id | inteiro) {"," (id | inteiro)} .
+retorno = "return" expressao.
+chamadaFuncao = id "(" [argumentos] ")" .
+
+tipo = tipoPrimitivo | definicaoTipo .
+tipoPrimitivo = "int" | "float" | "char" | "boolean" .
+definicaoTipo = "typedef" id (tipoPrimitivo | estrutura) .
+estrutura = "struct" id "{"  declaracoes  "}" .
+
+escopo = {declaracoes | comandos} .
+
+declaracoes = ["const"] {declaracao} .
+declaracao = tipo variavel { "," variavel }  ";" .
+
+comandos = {comando} .
+comando = atribuicao ";" | condicional | iteracao | entrada ";" | saida ";" | chamadaFuncao ";" | retorno ";" .
+
+atribuicao = variavel "=" (expressao | chamadaFuncao) .
+condicional = "if" "(" condicao ")" "{" escopo "}" [ "else" "{" escopo "}" ].
+iteracao = "while" "(" condicao ")" "{" escopo "}" .
+entrada = "read" "(" ")" .
+saida = "write" "(" texto ")" .
+
+condicao =  (expressao comparador expressao | expressaoBooleana) .
+comparador = "==" | ">" | "<" | "<=" | ">=" | "!=" .
+expressaoBooleana = (booleano | condicao operadorLogico condicao | "(" condicao ")" | "!" expressaoBooleana) .
+booleano = "true"| "false" .
+operadorLogico = "&&" |  "||" .
+
+expressao = termo {("+" | "-") termo} .
+termo = fator {( "*" | "/" ) fator} .
+fator = sinal valor | "("  expressao ")" .
+
+sinal = ["-" | "+"] .
+valor = variavel | inteiro | booleano | chamadaFuncao .
+
+string = """caracteres"""
+texto = (string | variavel | chamadaFuncao){"+" (string | variavel | chamadaFuncao)} .
