@@ -10,4 +10,11 @@ main {
 	
 	b = fn1 (3);
 	write("ronaldo brilha muitu nu curintia" + zina);
+	
+	if(b >= 3) {
+		read();
+	} else {
+		int a;
+		a = 4;
+	}
 }
