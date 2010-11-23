@@ -95,6 +95,7 @@ public class Transdutor {
 		this.tabelaTransicao[0][(int)'='] = 3;
 		this.tabelaTransicao[0][(int)'<'] = 3;
 		this.tabelaTransicao[0][(int)'%'] = 3;
+		this.tabelaTransicao[0][(int)'!'] = 3;
 		
 		this.tabelaTransicao[0][(int)'"'] = 6;
 		
@@ -123,6 +124,8 @@ public class Transdutor {
 		
 		/* Transições do estado 3. */
 		this.tabelaTransicao[3][(int)'/'] = 4;
+		
+		this.tabelaTransicao[3][(int)'='] = 1; // Para o caso de ==, <=, >= e !=.
 		
 		/* Transições do estado 4. */
 		for(int i = 0; i < 256; i++) {

@@ -22,13 +22,13 @@
   <state name="q8" id="8">
   </state>
   <state name="q9" id="9">
-    <final/>
   </state>
   <state name="q10" id="10">
   </state>
   <state name="q11" id="11">
   </state>
   <state name="q12" id="12">
+    <final/>
   </state>
   <state name="q13" id="13">
   </state>
@@ -62,44 +62,20 @@
   </state>
   <state name="q28" id="28">
   </state>
-  <state name="q29" id="29">
-  </state>
-  <state name="q30" id="30">
-  </state>
   <transition>
     <from>16</from>
-    <to>18</to>
-    <read>&quot;id&quot;</read>
-  </transition>
-  <transition>
-    <from>16</from>
-    <to>18</to>
-    <read>&quot;inteiro&quot;</read>
-  </transition>
-  <transition>
-    <from>16</from>
-    <to>14</to>
-    <read>&quot;)&quot;</read>
+    <to>9</to>
+    <read>&quot;(&quot;</read>
   </transition>
   <transition>
     <from>27</from>
-    <to>28</to>
-    <read>&quot;[&quot;</read>
-  </transition>
-  <transition>
-    <from>27</from>
-    <to>7</to>
+    <to>8</to>
     <read>&quot;=&quot;</read>
   </transition>
   <transition>
     <from>5</from>
-    <to>9</to>
+    <to>10</to>
     <read>expressao</read>
-  </transition>
-  <transition>
-    <from>11</from>
-    <to>13</to>
-    <read>texto</read>
   </transition>
   <transition>
     <from>0</from>
@@ -133,103 +109,143 @@
   </transition>
   <transition>
     <from>22</from>
+    <to>24</to>
+    <read>&quot;]&quot;</read>
+  </transition>
+  <transition>
+    <from>11</from>
+    <to>14</to>
+    <read>&quot;,&quot;</read>
+  </transition>
+  <transition>
+    <from>11</from>
+    <to>10</to>
+    <read>&quot;)&quot;</read>
+  </transition>
+  <transition>
+    <from>17</from>
     <to>18</to>
-    <read>&quot;id&quot;</read>
-  </transition>
-  <transition>
-    <from>22</from>
-    <to>18</to>
-    <read>&quot;inteiro&quot;</read>
-  </transition>
-  <transition>
-    <from>6</from>
-    <to>25</to>
-    <read>&quot;inteiro&quot;</read>
-  </transition>
-  <transition>
-    <from>28</from>
-    <to>29</to>
-    <read>&quot;inteiro&quot;</read>
+    <read>expressao</read>
   </transition>
   <transition>
     <from>17</from>
     <to>19</to>
-    <read>expressao</read>
-  </transition>
-  <transition>
-    <from>17</from>
-    <to>20</to>
     <read>expressaoBooleana</read>
   </transition>
   <transition>
+    <from>28</from>
+    <to>6</to>
+    <read>&quot;.&quot;</read>
+  </transition>
+  <transition>
+    <from>28</from>
+    <to>8</to>
+    <read>&quot;=&quot;</read>
+  </transition>
+  <transition>
+    <from>6</from>
+    <to>28</to>
+    <read>id</read>
+  </transition>
+  <transition>
+    <from>23</from>
+    <to>19</to>
+    <read>expressao</read>
+  </transition>
+  <transition>
     <from>12</from>
-    <to>10</to>
+    <to>1</to>
     <read>&quot;id&quot;</read>
   </transition>
   <transition>
     <from>12</from>
-    <to>10</to>
-    <read>&quot;inteiro&quot;</read>
+    <to>2</to>
+    <read>&quot;if&quot;</read>
   </transition>
   <transition>
-    <from>23</from>
-    <to>24</to>
-    <read>declaracoes</read>
+    <from>12</from>
+    <to>2</to>
+    <read>&quot;while&quot;</read>
   </transition>
   <transition>
-    <from>23</from>
-    <to>24</to>
-    <read>comandos</read>
+    <from>12</from>
+    <to>3</to>
+    <read>&quot;read&quot;</read>
   </transition>
   <transition>
-    <from>23</from>
-    <to>9</to>
-    <read>&quot;}&quot;</read>
+    <from>12</from>
+    <to>4</to>
+    <read>&quot;write&quot;</read>
+  </transition>
+  <transition>
+    <from>12</from>
+    <to>5</to>
+    <read>&quot;return&quot;</read>
   </transition>
   <transition>
     <from>1</from>
     <to>6</to>
-    <read>&quot;[&quot;</read>
+    <read>&quot;.&quot;</read>
   </transition>
   <transition>
     <from>1</from>
     <to>7</to>
-    <read>&quot;=&quot;</read>
+    <read>&quot;[&quot;</read>
   </transition>
   <transition>
     <from>1</from>
     <to>8</to>
+    <read>&quot;=&quot;</read>
+  </transition>
+  <transition>
+    <from>1</from>
+    <to>9</to>
     <read>&quot;(&quot;</read>
   </transition>
   <transition>
     <from>18</from>
-    <to>22</to>
-    <read>&quot;,&quot;</read>
+    <to>23</to>
+    <read>&quot;==&quot;</read>
   </transition>
   <transition>
     <from>18</from>
-    <to>14</to>
-    <read>&quot;)&quot;</read>
+    <to>23</to>
+    <read>&quot;&gt;&quot;</read>
+  </transition>
+  <transition>
+    <from>18</from>
+    <to>23</to>
+    <read>&quot;&lt;&quot;</read>
+  </transition>
+  <transition>
+    <from>18</from>
+    <to>23</to>
+    <read>&quot;&lt;=&quot;</read>
+  </transition>
+  <transition>
+    <from>18</from>
+    <to>23</to>
+    <read>&quot;&gt;=&quot;</read>
+  </transition>
+  <transition>
+    <from>18</from>
+    <to>23</to>
+    <read>&quot;!=&quot;</read>
   </transition>
   <transition>
     <from>7</from>
-    <to>15</to>
-    <read>&quot;id&quot;</read>
+    <to>22</to>
+    <read>&quot;inteiro&quot;</read>
   </transition>
   <transition>
-    <from>7</from>
-    <to>14</to>
-    <read>expressao</read>
+    <from>24</from>
+    <to>25</to>
+    <read>&quot;[&quot;</read>
   </transition>
   <transition>
-    <from>29</from>
-    <to>30</to>
-    <read>&quot;]&quot;</read>
-  </transition>
-  <transition>
-    <from>13</from>
-    <to>14</to>
-    <read>&quot;)&quot;</read>
+    <from>24</from>
+    <to>8</to>
+    <read>&quot;=&quot;</read>
   </transition>
   <transition>
     <from>2</from>
@@ -237,138 +253,98 @@
     <read>&quot;(&quot;</read>
   </transition>
   <transition>
-    <from>24</from>
-    <to>9</to>
-    <read>&quot;}&quot;</read>
-  </transition>
-  <transition>
-    <from>19</from>
-    <to>26</to>
-    <read>&quot;==&quot;</read>
-  </transition>
-  <transition>
-    <from>19</from>
-    <to>26</to>
-    <read>&quot;&gt;&quot;</read>
-  </transition>
-  <transition>
-    <from>19</from>
-    <to>26</to>
-    <read>&quot;&lt;&quot;</read>
-  </transition>
-  <transition>
-    <from>19</from>
-    <to>26</to>
-    <read>&quot;&lt;=&quot;</read>
-  </transition>
-  <transition>
-    <from>19</from>
-    <to>26</to>
-    <read>&quot;&gt;=&quot;</read>
-  </transition>
-  <transition>
-    <from>19</from>
-    <to>26</to>
-    <read>&quot;!=&quot;</read>
+    <from>13</from>
+    <to>15</to>
+    <read>texto</read>
   </transition>
   <transition>
     <from>8</from>
-    <to>10</to>
+    <to>16</to>
     <read>&quot;id&quot;</read>
   </transition>
   <transition>
     <from>8</from>
     <to>10</to>
-    <read>&quot;inteiro&quot;</read>
+    <read>expressao</read>
   </transition>
   <transition>
-    <from>8</from>
-    <to>9</to>
+    <from>19</from>
+    <to>20</to>
     <read>&quot;)&quot;</read>
   </transition>
   <transition>
-    <from>30</from>
-    <to>7</to>
-    <read>&quot;=&quot;</read>
-  </transition>
-  <transition>
-    <from>25</from>
-    <to>27</to>
-    <read>&quot;]&quot;</read>
+    <from>14</from>
+    <to>11</to>
+    <read>&quot;id&quot;</read>
   </transition>
   <transition>
     <from>14</from>
-    <to>9</to>
-    <read>&quot;;&quot;</read>
+    <to>11</to>
+    <read>&quot;inteiro&quot;</read>
+  </transition>
+  <transition>
+    <from>25</from>
+    <to>26</to>
+    <read>&quot;inteiro&quot;</read>
   </transition>
   <transition>
     <from>3</from>
-    <to>13</to>
+    <to>15</to>
     <read>&quot;(&quot;</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>11</to>
+    <read>&quot;id&quot;</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>11</to>
+    <read>&quot;inteiro&quot;</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>10</to>
+    <read>&quot;)&quot;</read>
   </transition>
   <transition>
     <from>20</from>
     <to>21</to>
-    <read>&quot;)&quot;</read>
-  </transition>
-  <transition>
-    <from>9</from>
-    <to>1</to>
-    <read>&quot;id&quot;</read>
-  </transition>
-  <transition>
-    <from>9</from>
-    <to>2</to>
-    <read>&quot;if&quot;</read>
-  </transition>
-  <transition>
-    <from>9</from>
-    <to>2</to>
-    <read>&quot;while&quot;</read>
-  </transition>
-  <transition>
-    <from>9</from>
-    <to>3</to>
-    <read>&quot;read&quot;</read>
-  </transition>
-  <transition>
-    <from>9</from>
-    <to>4</to>
-    <read>&quot;write&quot;</read>
-  </transition>
-  <transition>
-    <from>9</from>
-    <to>5</to>
-    <read>&quot;return&quot;</read>
+    <read>&quot;{&quot;</read>
   </transition>
   <transition>
     <from>26</from>
-    <to>20</to>
-    <read>expressao</read>
+    <to>27</to>
+    <read>&quot;]&quot;</read>
   </transition>
   <transition>
     <from>4</from>
-    <to>11</to>
+    <to>13</to>
     <read>&quot;(&quot;</read>
   </transition>
   <transition>
     <from>15</from>
-    <to>16</to>
-    <read>&quot;(&quot;</read>
+    <to>10</to>
+    <read>&quot;)&quot;</read>
   </transition>
   <transition>
     <from>21</from>
-    <to>23</to>
-    <read>&quot;{&quot;</read>
+    <to>21</to>
+    <read>declaracoes</read>
+  </transition>
+  <transition>
+    <from>21</from>
+    <to>21</to>
+    <read>comandos</read>
+  </transition>
+  <transition>
+    <from>21</from>
+    <to>12</to>
+    <read>&quot;}&quot;</read>
   </transition>
   <transition>
     <from>10</from>
     <to>12</to>
-    <read>&quot;,&quot;</read>
-  </transition>
-  <transition>
-    <from>10</from>
-    <to>9</to>
-    <read>&quot;)&quot;</read>
+    <read>&quot;;&quot;</read>
   </transition>
 </structure>

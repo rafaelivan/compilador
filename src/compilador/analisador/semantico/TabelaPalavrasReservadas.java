@@ -30,7 +30,7 @@ public class TabelaPalavrasReservadas {
 	}
 	
 	private TabelaPalavrasReservadas() {
-		this.tabelaPalavrasReservadas = new int[16][];
+		this.tabelaPalavrasReservadas = new int[20][];
 		
 		this.tabelaPalavrasReservadas[0] = this.converter("if".toCharArray());
 		this.tabelaPalavrasReservadas[1] = this.converter("else".toCharArray());
@@ -48,6 +48,10 @@ public class TabelaPalavrasReservadas {
 		this.tabelaPalavrasReservadas[13] = this.converter("read".toCharArray());
 		this.tabelaPalavrasReservadas[14] = this.converter("return".toCharArray());
 		this.tabelaPalavrasReservadas[15] = this.converter("main".toCharArray());
+		this.tabelaPalavrasReservadas[16] = this.converter("==".toCharArray());
+		this.tabelaPalavrasReservadas[17] = this.converter("<=".toCharArray());
+		this.tabelaPalavrasReservadas[18] = this.converter(">=".toCharArray());
+		this.tabelaPalavrasReservadas[19] = this.converter("!=".toCharArray());
 	}
 	
 	private int[] converter(char[] arr) {

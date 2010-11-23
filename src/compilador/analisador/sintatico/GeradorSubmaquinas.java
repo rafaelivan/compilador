@@ -85,7 +85,7 @@ public class GeradorSubmaquinas {
 	private int[][][] tabelaTransicao() {
 		NodeList nodeList = doc.getElementsByTagName("state");
 		
-		int[][][] tabelaTransicao = new int[nodeList.getLength()][7][256]; // 7 = total de classe de tokens - 16 = m‡ximo de palavras reservadas
+		int[][][] tabelaTransicao = new int[nodeList.getLength()][7][256]; // 7 = total de classe de tokens.
 		for(int i = 0; i < tabelaTransicao.length; i++)
 			for(int j = 0; j < tabelaTransicao[i].length; j++)
 				for(int k = 0; k < tabelaTransicao[i][j].length; k++)
@@ -120,6 +120,11 @@ public class GeradorSubmaquinas {
 								tabelaTransicao[estadoOrigem][classeToken][k] = estadoDestino;
 						} else if(valor.equals("\"inteiro\"")) {
 							classeToken = Token.CLASSE_NUMERO_INTEIRO;
+							
+							for(int k = 0; k < tabelaTransicao[estadoOrigem][classeToken].length; k++)
+								tabelaTransicao[estadoOrigem][classeToken][k] = estadoDestino;
+						} else if(valor.equals("\"string\"")) {
+							classeToken = Token.CLASSE_STRING;
 							
 							for(int k = 0; k < tabelaTransicao[estadoOrigem][classeToken].length; k++)
 								tabelaTransicao[estadoOrigem][classeToken][k] = estadoDestino;
@@ -198,9 +203,6 @@ public class GeradorSubmaquinas {
 	
 	public void teste() {
 		NodeList nodeList = doc.getElementsByTagName("name");
-		
-		String nome = nodeList.item(0).getChildNodes().item(0).getNodeValue();
-		System.out.println(nome);
 	}
 	
 	public static void main(String[] args) {

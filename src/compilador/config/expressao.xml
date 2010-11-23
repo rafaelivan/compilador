@@ -28,11 +28,16 @@
   <state name="q10" id="10">
   </state>
   <state name="q11" id="11">
-    <final/>
   </state>
   <state name="q12" id="12">
+    <final/>
   </state>
   <state name="q13" id="13">
+  </state>
+  <state name="q14" id="14">
+  </state>
+  <state name="q15" id="15">
+    <final/>
   </state>
   <transition>
     <from>5</from>
@@ -76,33 +81,13 @@
   </transition>
   <transition>
     <from>11</from>
-    <to>0</to>
-    <read>&quot;-&quot;</read>
-  </transition>
-  <transition>
-    <from>11</from>
-    <to>0</to>
-    <read>&quot;+&quot;</read>
-  </transition>
-  <transition>
-    <from>11</from>
     <to>12</to>
-    <read>&quot;[&quot;</read>
-  </transition>
-  <transition>
-    <from>11</from>
-    <to>0</to>
-    <read>&quot;*&quot;</read>
-  </transition>
-  <transition>
-    <from>11</from>
-    <to>0</to>
-    <read>&quot;/&quot;</read>
+    <read>&quot;]&quot;</read>
   </transition>
   <transition>
     <from>6</from>
-    <to>10</to>
-    <read>&quot;inteiro&quot;</read>
+    <to>15</to>
+    <read>id</read>
   </transition>
   <transition>
     <from>1</from>
@@ -126,28 +111,33 @@
   </transition>
   <transition>
     <from>12</from>
+    <to>0</to>
+    <read>&quot;-&quot;</read>
+  </transition>
+  <transition>
+    <from>12</from>
+    <to>0</to>
+    <read>&quot;+&quot;</read>
+  </transition>
+  <transition>
+    <from>12</from>
     <to>13</to>
+    <read>&quot;[&quot;</read>
+  </transition>
+  <transition>
+    <from>12</from>
+    <to>0</to>
+    <read>&quot;*&quot;</read>
+  </transition>
+  <transition>
+    <from>12</from>
+    <to>0</to>
+    <read>&quot;/&quot;</read>
+  </transition>
+  <transition>
+    <from>7</from>
+    <to>11</to>
     <read>&quot;inteiro&quot;</read>
-  </transition>
-  <transition>
-    <from>7</from>
-    <to>8</to>
-    <read>&quot;id&quot;</read>
-  </transition>
-  <transition>
-    <from>7</from>
-    <to>8</to>
-    <read>&quot;inteiro&quot;</read>
-  </transition>
-  <transition>
-    <from>7</from>
-    <to>3</to>
-    <read>&quot;)&quot;</read>
-  </transition>
-  <transition>
-    <from>13</from>
-    <to>3</to>
-    <read>&quot;]&quot;</read>
   </transition>
   <transition>
     <from>2</from>
@@ -162,11 +152,16 @@
   <transition>
     <from>2</from>
     <to>6</to>
-    <read>&quot;[&quot;</read>
+    <read>&quot;.&quot;</read>
   </transition>
   <transition>
     <from>2</from>
     <to>7</to>
+    <read>&quot;[&quot;</read>
+  </transition>
+  <transition>
+    <from>2</from>
+    <to>8</to>
     <read>&quot;(&quot;</read>
   </transition>
   <transition>
@@ -180,9 +175,19 @@
     <read>&quot;/&quot;</read>
   </transition>
   <transition>
+    <from>13</from>
+    <to>14</to>
+    <read>&quot;inteiro&quot;</read>
+  </transition>
+  <transition>
     <from>8</from>
     <to>9</to>
-    <read>&quot;,&quot;</read>
+    <read>&quot;id&quot;</read>
+  </transition>
+  <transition>
+    <from>8</from>
+    <to>9</to>
+    <read>&quot;inteiro&quot;</read>
   </transition>
   <transition>
     <from>8</from>
@@ -210,14 +215,44 @@
     <read>&quot;/&quot;</read>
   </transition>
   <transition>
-    <from>9</from>
-    <to>8</to>
-    <read>&quot;id&quot;</read>
+    <from>14</from>
+    <to>3</to>
+    <read>&quot;]&quot;</read>
   </transition>
   <transition>
     <from>9</from>
-    <to>8</to>
-    <read>&quot;inteiro&quot;</read>
+    <to>10</to>
+    <read>&quot;,&quot;</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>3</to>
+    <read>&quot;)&quot;</read>
+  </transition>
+  <transition>
+    <from>15</from>
+    <to>0</to>
+    <read>&quot;-&quot;</read>
+  </transition>
+  <transition>
+    <from>15</from>
+    <to>0</to>
+    <read>&quot;+&quot;</read>
+  </transition>
+  <transition>
+    <from>15</from>
+    <to>6</to>
+    <read>&quot;.&quot;</read>
+  </transition>
+  <transition>
+    <from>15</from>
+    <to>0</to>
+    <read>&quot;*&quot;</read>
+  </transition>
+  <transition>
+    <from>15</from>
+    <to>0</to>
+    <read>&quot;/&quot;</read>
   </transition>
   <transition>
     <from>4</from>
@@ -226,7 +261,12 @@
   </transition>
   <transition>
     <from>10</from>
-    <to>11</to>
-    <read>&quot;]&quot;</read>
+    <to>9</to>
+    <read>&quot;id&quot;</read>
+  </transition>
+  <transition>
+    <from>10</from>
+    <to>9</to>
+    <read>&quot;inteiro&quot;</read>
   </transition>
 </structure>

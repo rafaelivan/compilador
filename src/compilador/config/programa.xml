@@ -18,9 +18,9 @@
   <state name="q6" id="6">
   </state>
   <state name="q7" id="7">
+    <final/>
   </state>
   <state name="q8" id="8">
-    <final/>
   </state>
   <state name="q9" id="9">
   </state>
@@ -36,48 +36,20 @@
   </state>
   <state name="q15" id="15">
   </state>
-  <state name="q16" id="16">
-  </state>
-  <state name="q17" id="17">
-  </state>
-  <state name="q18" id="18">
-  </state>
-  <state name="q19" id="19">
-  </state>
   <transition>
     <from>5</from>
-    <to>7</to>
+    <to>5</to>
     <read>declaracoes</read>
   </transition>
   <transition>
     <from>5</from>
-    <to>8</to>
+    <to>7</to>
     <read>&quot;}&quot;</read>
   </transition>
   <transition>
     <from>5</from>
-    <to>7</to>
+    <to>5</to>
     <read>comandos</read>
-  </transition>
-  <transition>
-    <from>16</from>
-    <to>17</to>
-    <read>&quot;id&quot;</read>
-  </transition>
-  <transition>
-    <from>11</from>
-    <to>12</to>
-    <read>declaracoes</read>
-  </transition>
-  <transition>
-    <from>11</from>
-    <to>12</to>
-    <read>comandos</read>
-  </transition>
-  <transition>
-    <from>11</from>
-    <to>13</to>
-    <read>&quot;return&quot;</read>
   </transition>
   <transition>
     <from>0</from>
@@ -110,19 +82,29 @@
     <read>&quot;main&quot;</read>
   </transition>
   <transition>
+    <from>11</from>
+    <to>1</to>
+    <read>&quot;int&quot;</read>
+  </transition>
+  <transition>
+    <from>11</from>
+    <to>1</to>
+    <read>&quot;char&quot;</read>
+  </transition>
+  <transition>
+    <from>11</from>
+    <to>1</to>
+    <read>&quot;boolean&quot;</read>
+  </transition>
+  <transition>
+    <from>11</from>
+    <to>12</to>
+    <read>&quot;struct&quot;</read>
+  </transition>
+  <transition>
     <from>6</from>
-    <to>9</to>
+    <to>8</to>
     <read>parametros</read>
-  </transition>
-  <transition>
-    <from>17</from>
-    <to>18</to>
-    <read>&quot;{&quot;</read>
-  </transition>
-  <transition>
-    <from>12</from>
-    <to>13</to>
-    <read>&quot;return&quot;</read>
   </transition>
   <transition>
     <from>1</from>
@@ -130,49 +112,24 @@
     <read>&quot;id&quot;</read>
   </transition>
   <transition>
-    <from>18</from>
-    <to>19</to>
-    <read>declaracoes</read>
-  </transition>
-  <transition>
-    <from>7</from>
-    <to>8</to>
-    <read>&quot;}&quot;</read>
-  </transition>
-  <transition>
-    <from>13</from>
-    <to>15</to>
-    <read>expressao</read>
-  </transition>
-  <transition>
-    <from>2</from>
-    <to>14</to>
+    <from>12</from>
+    <to>13</to>
     <read>&quot;id&quot;</read>
   </transition>
   <transition>
-    <from>19</from>
-    <to>1</to>
-    <read>&quot;}&quot;</read>
+    <from>13</from>
+    <to>14</to>
+    <read>&quot;{&quot;</read>
   </transition>
   <transition>
-    <from>14</from>
-    <to>1</to>
-    <read>&quot;int&quot;</read>
+    <from>2</from>
+    <to>11</to>
+    <read>&quot;id&quot;</read>
   </transition>
   <transition>
-    <from>14</from>
-    <to>1</to>
-    <read>&quot;char&quot;</read>
-  </transition>
-  <transition>
-    <from>14</from>
-    <to>1</to>
-    <read>&quot;boolean&quot;</read>
-  </transition>
-  <transition>
-    <from>14</from>
-    <to>16</to>
-    <read>&quot;struct&quot;</read>
+    <from>8</from>
+    <to>9</to>
+    <read>&quot;)&quot;</read>
   </transition>
   <transition>
     <from>3</from>
@@ -180,13 +137,18 @@
     <read>&quot;{&quot;</read>
   </transition>
   <transition>
+    <from>14</from>
+    <to>15</to>
+    <read>declaracoes</read>
+  </transition>
+  <transition>
     <from>9</from>
     <to>10</to>
-    <read>&quot;)&quot;</read>
+    <read>&quot;{&quot;</read>
   </transition>
   <transition>
     <from>15</from>
-    <to>0</to>
+    <to>1</to>
     <read>&quot;}&quot;</read>
   </transition>
   <transition>
@@ -196,7 +158,17 @@
   </transition>
   <transition>
     <from>10</from>
-    <to>11</to>
-    <read>&quot;{&quot;</read>
+    <to>10</to>
+    <read>declaracoes</read>
+  </transition>
+  <transition>
+    <from>10</from>
+    <to>0</to>
+    <read>&quot;}&quot;</read>
+  </transition>
+  <transition>
+    <from>10</from>
+    <to>10</to>
+    <read>comandos</read>
   </transition>
 </structure>

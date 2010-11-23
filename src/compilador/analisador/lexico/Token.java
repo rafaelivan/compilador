@@ -11,7 +11,6 @@ public class Token {
 	public static final int CLASSE_NUMERO_INTEIRO = 4;
 	public static final int CLASSE_OUTROS_CARACTERES = 5;
 	public static final int CLASSE_STRING = 6;
-	// TODO: Adicionar as classes que faltarem quando definirmos a linguagem.
 	
 	/**
 	 * A classe do Token.
@@ -25,6 +24,16 @@ public class Token {
 	 */
 	private int id;
 	
+	/**
+	 * A linha onde o Token estava no c—digo-fonte.
+	 */
+	private int linha;
+	
+	/**
+	 * A coluna onde o Token estava no c—digo-fonte.
+	 */
+	private int coluna;
+	
 	public Token(int classe, int id) {
 		this.classe = classe;
 		this.id = id;
@@ -36,5 +45,21 @@ public class Token {
 
 	public int getID() {
 		return this.id;
+	}
+
+	public int getLinha() {
+		return linha;
+	}
+
+	public void setLinha(int linha) {
+		this.linha = linha;
+	}
+
+	public int getColuna() {
+		return coluna;
+	}
+
+	public void setColuna(int coluna) {
+		this.coluna = coluna;
 	}
 }
