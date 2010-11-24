@@ -39,6 +39,11 @@ public class AutomatoPilhaEstruturado {
 	 */
 	private int estadoAtual;
 	
+	/**
+	 * O último erro sintático encontrado.
+	 */
+	private ErroSintatico ultimoErro;
+	
 	public AutomatoPilhaEstruturado() {
 		this.inicializaSubmaquinas();
 		
@@ -53,12 +58,7 @@ public class AutomatoPilhaEstruturado {
 	 * 
 	 * @param token o token a ser consumido.
 	 */
-	public void consumirToken(Token token) {
-//		this.submaquinaAtual.getNome().imprimirln();
-//		System.out.println("Estado Atual: " + this.estadoAtual);
-//		System.out.println("Token.classe: " + token.getClasse());
-//		System.out.println("Token.id: " + token.getID());
-		
+	public void consumirToken(Token token) {		
 		int statusTransicao = this.submaquinaAtual.transicao(token);
 		
 		if(statusTransicao == Submaquina.TRANSICAO_OK) {
@@ -72,10 +72,8 @@ public class AutomatoPilhaEstruturado {
 				// Se não for possível chamar outra submáquina. 
 				if(!this.retornarParaSubmaquina(token)) {
 					// Se não for possível retornar.
-					System.out.println("Token inesperado.\nToken.classe: " + token.getClasse());
-					System.out.println("Token.ID: " + token.getID());
-					System.out.println("Linha: " + token.getLinha());
-					System.out.println("Coluna: " + token.getColuna() + "\n");
+					
+					this.ultimoErro = new ErroSintatico(token.getLinha(), token.getColuna(), token.getClasse());
 				}
 			}
 		}
@@ -165,7 +163,7 @@ public class AutomatoPilhaEstruturado {
 	/**
 	 * Verifica se o APE está no estado de aceitação da submáquina principal.
 	 * 
-	 * @return <code>true<code> caso esteja no estado de aceitação da submáquina principal. <code>false</code>, caso contrário.
+	 * @return <code>true<code>, caso esteja no estado de aceitação da submáquina principal. <code>false</code>, caso contrário.
 	 */
 	public boolean estaNoEstadoAceitacao() {
 		if(this.submaquinaAtual.getNome().equals(SUBMAQUINA_INICIAL) 
@@ -173,6 +171,24 @@ public class AutomatoPilhaEstruturado {
 			return true;
 		
 		return false;
+	}
+	
+	/**
+	 * Verifica se a pilha do APE está vazia.
+	 * 
+	 * @return <code>true<code>, caso a pilha esteja vazia. <code>false</code>, caso contrário.
+	 */
+	public boolean pilhaVazia() {
+		return this.pilha.vazia();
+	}
+	
+	/**
+	 * @return o último erro sintático encontrado.
+	 */
+	public ErroSintatico getUltimoErroSintatico() {
+		ErroSintatico erro = this.ultimoErro;
+		this.ultimoErro = null;
+		return erro;
 	}
 	
 	/**

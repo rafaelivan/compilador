@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import compilador.analisador.lexico.AnalisadorLexico;
 import compilador.analisador.lexico.Token;
+import compilador.estruturas.ListaLigada;
 
 public class AnalisadorSintatico {
 	
@@ -17,13 +18,21 @@ public class AnalisadorSintatico {
 	 */
 	private AnalisadorLexico lexico;
 	
+	/**
+	 * Lista que armazena os erros sintáticos do código-fonte.
+	 */
+	private ListaLigada<ErroSintatico> erros;
+	
 	public AnalisadorSintatico() {
 		// Inicializa o analisador léxico.
-		lexico = new AnalisadorLexico();
-		lexico.carregarCodigoFonte("src/compilador/testes/source.ling");
+		this.lexico = new AnalisadorLexico();
+		this.lexico.carregarCodigoFonte("src/compilador/testes/source.ling");
 		
 		// Inicializa o APE.
-		ape = new AutomatoPilhaEstruturado();
+		this.ape = new AutomatoPilhaEstruturado();
+		
+		// Inicializa a lista de erros sintáticos.
+		this.erros = new ListaLigada<ErroSintatico>();
 	}
 	
 	/**
@@ -38,12 +47,28 @@ public class AnalisadorSintatico {
 			while(lexico.haMaisTokens()) {
 				token = lexico.proximoToken();
 				this.ape.consumirToken(token);
+				
+				// Verifica se houve erro sintático no autômato de pilha.
+				ErroSintatico erro = this.ape.getUltimoErroSintatico(); 
+				if(erro != null)
+					this.erros.put(erro);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 		
-		return this.ape.estaNoEstadoAceitacao();
+		// Condição para que o código esteja sintaticamente correto.
+		if(this.ape.estaNoEstadoAceitacao() && this.ape.pilhaVazia() && this.erros.vazia())
+			return true;
+		
+		// Imprime os erros encontrados.
+		for(int i = 0; i < this.erros.tamanho(); i++) {
+			System.out.print("Token ");
+			Token.getClasseTokenString(this.erros.get(i).getClasseToken()).imprimir();
+			System.out.println(" inesperado. Linha " + this.erros.get(i).getLinha() + " - Coluna: " + this.erros.get(i).getColuna());
+		}
+		
+		return false;
 	}
 	
 	public static void main(String[] args) {
@@ -51,8 +76,8 @@ public class AnalisadorSintatico {
 		boolean resultado = sintatico.processarCodigoFonte();
 		
 		if(resultado)
-			System.out.println("RESULTADO: O programa esta sintaticamente correto.");
+			System.out.println("\nRESULTADO: O programa esta sintaticamente correto.");
 		else
-			System.out.println("RESULTADO: O programa nao esta sintaticamente correto.");
+			System.out.println("\nRESULTADO: O programa nao esta sintaticamente correto.");
 	}
 }
