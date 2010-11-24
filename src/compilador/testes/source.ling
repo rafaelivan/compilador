@@ -8,7 +8,7 @@ int fn1 (int var) {
 main {
 	int b;
 	
-	b = fn1 (3);
+	b = fn1(3);
 	write("ronaldo brilha muitu nu curintia" + zina);
 	
 	if(b >= 3) {

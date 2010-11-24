@@ -124,18 +124,20 @@ public class AnalisadorLexico {
 		int chave; // Chave do Token na tabela correspondente ˆ sua classe.
 		Token token; // Armazenar‡ o token reconhecido.
 		int[] bufferMinimo;
-		int colunaToken = this.coluna;
 		
 		// Coloca o primeiro carater no lookahead, pois ainda n‹o iniciou o processamento.
 		// Executa somente na primeira vez.
 		if(this.lookahead == -1) {
-			this.lookahead = arquivoCondigoFonte.read();
+			this.lookahead = this.lerProximoCaracter();
 			
 			if(this.lookahead == -1) {
 				// Atingiu o final do arquivo.
 				this.finalDoArquivo = true;
 			}
 		}
+		
+		int linhaToken = this.linha;
+		int colunaToken = this.coluna - 1;
 		
 		while(true) {
 			if(this.finalDoArquivo && this.ch == -1) {
@@ -146,24 +148,10 @@ public class AnalisadorLexico {
 			
 			if(this.ch == -1) {
 				this.ch = this.lookahead;
-				this.lookahead = arquivoCondigoFonte.read();
+				this.lookahead = this.lerProximoCaracter();
 				
 				if(this.lookahead == -1)
 					this.finalDoArquivo = true;
-				
-				// Incrementa o contador de linhas.
-				if(this.ch == (int)'\n') {
-					this.linha++;
-					this.coluna = 1;
-				}
-				
-				// Incrementa o nœmero de colunas.
-				if(this.ch == (int)'\t')
-					this.coluna += 4;
-				else if(this.ch >= 11)
-					this.coluna++;
-				
-//				System.out.println((char)this.ch + " - linha: " + this.linha + " - coluna: " + colunaToken);
 			}
 			
 			// Executa uma transi‹o no aut™mato.
@@ -187,7 +175,7 @@ public class AnalisadorLexico {
 					
 					chave = TabelaPalavrasReservadas.getInstance().recuperarChave(bufferMinimo);
 					token = new Token(Token.CLASSE_PALAVRA_RESERVADA, chave);
-					token.setLinha(this.linha);
+					token.setLinha(linhaToken);
 					token.setColuna(colunaToken);
 					return token;
 				case Token.CLASSE_IDENTIFICADOR:
@@ -205,19 +193,17 @@ public class AnalisadorLexico {
 						}
 						
 						token = new Token(Token.CLASSE_IDENTIFICADOR, chave);
-						token.setLinha(this.linha);
-						token.setColuna(colunaToken);
 					} else {
 						// ƒ uma palavra reservada.
 						token = new Token(Token.CLASSE_PALAVRA_RESERVADA, chave);
-						token.setLinha(this.linha);
-						token.setColuna(colunaToken);
 					}
 					
+					token.setLinha(linhaToken);
+					token.setColuna(colunaToken);
 					return token;
 				case Token.CLASSE_CARACTER_ESPECIAL:
 					token = new Token(Token.CLASSE_CARACTER_ESPECIAL, this.buffer[0]);
-					token.setLinha(this.linha);
+					token.setLinha(linhaToken);
 					token.setColuna(colunaToken);
 					return token;
 				case Token.CLASSE_NUMERO_INTEIRO:
@@ -228,7 +214,7 @@ public class AnalisadorLexico {
 					}
 					
 					token = new Token(Token.CLASSE_NUMERO_INTEIRO, numero);
-					token.setLinha(this.linha);
+					token.setLinha(linhaToken);
 					token.setColuna(colunaToken);
 					return token;
 				case Token.CLASSE_STRING:
@@ -242,7 +228,7 @@ public class AnalisadorLexico {
 					}
 					
 					token = new Token(Token.CLASSE_STRING, chave);
-					token.setLinha(this.linha);
+					token.setLinha(linhaToken);
 					token.setColuna(colunaToken);
 					return token;
 			}
@@ -260,6 +246,27 @@ public class AnalisadorLexico {
 	 */
 	public boolean haMaisTokens() {
 		return this.haMaisTokens;
+	}
+	
+	/**
+	 * L o pr—ximo caracter do c—digo-fonte e conta o nœmero de linhas e colunas processadas.
+	 * @return o pr—ximo caracter do c—digo-fonte.
+	 */
+	private int lerProximoCaracter() throws IOException {
+		int caracter = arquivoCondigoFonte.read();
+		
+		if(caracter == (int)'\n') {
+			this.linha++;
+			this.coluna = 0;
+		} else if(caracter == (int)'\t') {
+			this.coluna += 4;
+		} else if(caracter >= 32) {
+			this.coluna++;
+		}
+		
+//		System.out.println((char)caracter + " - " + caracter + " - linha: " + this.linha + " - coluna: " + this.coluna);
+		
+		return caracter;
 	}
 	
 	public static void main(String[] args) {
