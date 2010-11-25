@@ -105,9 +105,6 @@ public class Submaquina {
 	public int transicao(Token token) {
 		int proximoEstado = this.tabelaTransicao[this.estadoAtual][token.getClasse()][token.getID()];
 		
-//		System.out.println("Prox estado : " + proximoEstado);
-//		System.out.println();
-		
 		if(proximoEstado == ESTADO_INVALIDO) {
 			// Deve tentar chamar uma subm‡quina.
 			return TRANSICAO_FALHOU;

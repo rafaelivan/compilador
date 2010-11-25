@@ -62,7 +62,7 @@ public class AnalisadorSintatico {
 			return true;
 		
 		// Imprime os erros encontrados.
-		for(int i = 0; i < this.erros.tamanho(); i++) {
+		for(int i = this.erros.tamanho() - 1; i >= 0; i--) {
 			System.out.print("Token ");
 			Token.getClasseTokenString(this.erros.get(i).getClasseToken()).imprimir();
 			System.out.println(" inesperado. Linha " + this.erros.get(i).getLinha() + " - Coluna: " + this.erros.get(i).getColuna());

@@ -88,6 +88,8 @@ public class Transdutor {
 		this.tabelaTransicao[0][(int)'/'] = 3;
 		this.tabelaTransicao[0][(int)'('] = 3;
 		this.tabelaTransicao[0][(int)')'] = 3;
+		this.tabelaTransicao[0][(int)'['] = 3;
+		this.tabelaTransicao[0][(int)']'] = 3;
 		this.tabelaTransicao[0][(int)'{'] = 3;
 		this.tabelaTransicao[0][(int)'}'] = 3;
 		this.tabelaTransicao[0][(int)'.'] = 3;
