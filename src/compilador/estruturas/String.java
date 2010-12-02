@@ -62,4 +62,13 @@ public class String {
 		result = prime * result + Arrays.hashCode(chars);
 		return result;
 	}
+	
+	@Override
+	public java.lang.String toString() {
+		java.lang.String s = "";
+		for(int i = 0; i < this.chars.length; i++)
+			s += this.chars[i];
+		
+		return s;
+	}
 }

@@ -1,6 +1,7 @@
 package compilador.analisador.sintatico;
 
 import compilador.analisador.lexico.Token;
+import compilador.analisador.semantico.AnalisadorSemantico;
 import compilador.estruturas.ListaLigada;
 import compilador.estruturas.Mapa;
 import compilador.estruturas.Pilha;
@@ -44,6 +45,11 @@ public class AutomatoPilhaEstruturado {
 	 */
 	private ErroSintatico ultimoErro;
 	
+	/**
+	 * O analisador sem‰ntico do compilador.
+	 */
+	private AnalisadorSemantico semantico;
+	
 	public AutomatoPilhaEstruturado() {
 		this.inicializaSubmaquinas();
 		
@@ -51,6 +57,9 @@ public class AutomatoPilhaEstruturado {
 		this.estadoAtual = this.submaquinaAtual.getEstadoInicial();
 		
 		this.pilha = new Pilha<Par>();
+		
+		// Inicializa o analisador sem‰ntico.
+		this.semantico = new AnalisadorSemantico();
 	}
 	
 	/**
@@ -58,11 +67,12 @@ public class AutomatoPilhaEstruturado {
 	 * 
 	 * @param token o token a ser consumido.
 	 */
-	public void consumirToken(Token token) {		
+	public void consumirToken(Token token) {
+		this.semantico.executarAcaoSemantica(this.submaquinaAtual.getNome().toString(), this.estadoAtual, token);
+		
 		int statusTransicao = this.submaquinaAtual.transicao(token);
 		
 		if(statusTransicao == Submaquina.TRANSICAO_OK) {
-			
 			this.estadoAtual = this.submaquinaAtual.getEstadoAtual();
 			
 		} else if(statusTransicao == Submaquina.TRANSICAO_FALHOU) {

@@ -1,20 +1,23 @@
-int fn1 (int var) {
-	int a; // teste de comentario
-	a = 2*var;
-
-	return a;
+int fatorial(int n) {
+	if(n <= 1) {
+		return 1;
+	} else {
+		int a;
+	
+		a = +n-1;
+		return fatorial(a);
+	}
 }
 
 main {
-	int b;
+	int var, b;
 	
-	b = fn1(3);
-	write("ronaldo brilha muitu nu curintia" + zina);
+	var = fatorial(3);
+	write("fatorial 3 eh: " + var);
 	
-	if(b >= 3) {
-		read();
-	} else {
-		int a;
-		a = 4;
+	b = 0;
+	while(b < 100) {
+		write("Fazer um compilador eh algo inesquecivel...");
+		b = +b+1;
 	}
 }

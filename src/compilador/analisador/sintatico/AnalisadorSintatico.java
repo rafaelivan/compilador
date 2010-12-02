@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import compilador.analisador.lexico.AnalisadorLexico;
 import compilador.analisador.lexico.Token;
+import compilador.analisador.semantico.AnalisadorSemantico;
 import compilador.estruturas.ListaLigada;
 
 public class AnalisadorSintatico {
