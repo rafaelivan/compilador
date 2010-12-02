@@ -210,7 +210,7 @@ public class AnalisadorLexico {
 					int numero = 0;
 					
 					for(int i = 0; i < this.buffer.length && this.buffer[i] != -1; i++) {
-						numero = 10*numero + Integer.valueOf(String.valueOf(this.buffer[i]));
+						numero = 10*numero + Integer.valueOf(String.valueOf((char)this.buffer[i]));
 					}
 					
 					token = new Token(Token.CLASSE_NUMERO_INTEIRO, numero);
