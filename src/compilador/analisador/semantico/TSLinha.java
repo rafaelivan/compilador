@@ -1,19 +1,15 @@
 package compilador.analisador.semantico;
 
-public class TSLinha {
+import compilador.estruturas.String;
 
-	 public final static int VARIAVEL = 0;
-	 public final static int FUNCAO = 1;
-	 public final static int VETOR = 2;
-	 public final static int MATRIZ = 3;
-	 public final static int PARAMETRO = 4;
-	
-	private int[] nome;		// nome do simbolo
-	private int tipo;			// tipo do simbolo: VARIAVEL, FUNCAO, VETOR, MATRIZ, PARAMETRO
-	private String endereco;	// pode ser HexaDecimal
-	private int tamanho;		// numero de bytes do simbolo
-	private boolean declarado;	// Se ele j� foi declarado antes de ser usado, � setado true se est� numa declara��o
-	private int[] parametros = new int[100];// fun��o com parametros, os tipos dos parametros ficam alistados na ordem neste vetor 
+public class TSLinha {	
+	private int[] nome;							// nome do simbolo
+	private int tipo;							// tipo do simbolo: int, char, string, boolean, "struct"
+	private int categoria;						// categoria do simbolo: VARIAVEL, FUNCAO, VETOR, MATRIZ, PARAMETRO
+	private String endereco;					// pode ser HexaDecimal
+	private int tamanho;						// numero de bytes do simbolo
+	private boolean declarado;					// Se ele j� foi declarado antes de ser usado, � setado true se est� numa declara��o
+	private int[] parametros = new int[100];	// fun��o com parametros, os tipos dos parametros ficam alistados na ordem neste vetor 
 	
 	public TSLinha(int[] nome)
 	{
@@ -38,6 +34,14 @@ public class TSLinha {
 
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
+	}
+
+	public int getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(int categoria) {
+		this.categoria = categoria;
 	}
 
 	public String getEndereco() {

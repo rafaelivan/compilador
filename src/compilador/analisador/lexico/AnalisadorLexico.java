@@ -5,8 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import compilador.analisador.semantico.Escopos;
 import compilador.analisador.semantico.TabelaPalavrasReservadas;
-import compilador.analisador.semantico.TabelaSimbolos;
 import compilador.helper.ArrayHelper;
 
 public class AnalisadorLexico {
@@ -186,10 +186,10 @@ public class AnalisadorLexico {
 					if(chave == -1) {
 						// N‹o est‡ na tabela de palavras reservadas.
 						
-						chave = TabelaSimbolos.recuperarChave(bufferMinimo);
+						chave = Escopos.recuperarChave(bufferMinimo);
 						if(chave == -1) {
 							// N‹o est‡ na tabela de s’mbolos.
-							chave = TabelaSimbolos.inserirSimbolo(bufferMinimo);
+							chave = Escopos.inserirSimbolo(bufferMinimo);
 						}
 						
 						token = new Token(Token.CLASSE_IDENTIFICADOR, chave);
@@ -220,11 +220,11 @@ public class AnalisadorLexico {
 				case Token.CLASSE_STRING:
 					bufferMinimo = ArrayHelper.alocarVetor(this.buffer);
 					
-					chave = TabelaSimbolos.recuperarChave(bufferMinimo);
+					chave = Escopos.recuperarChave(bufferMinimo);
 					
 					if(chave == -1) {
 						// N‹o est‡ na tabela de s’mbolos.
-						chave = TabelaSimbolos.inserirSimbolo(bufferMinimo);
+						chave = Escopos.inserirSimbolo(bufferMinimo);
 					}
 					
 					token = new Token(Token.CLASSE_STRING, chave);

@@ -14,9 +14,9 @@ public class AnalisadorSemantico {
 	
 	public AnalisadorSemantico() {
 		String[][][] tabelaAcoesSemanticas;
-		// Sum‡quina programa
+		// Subm‡quina programa
 		tabelaAcoesSemanticas = new String[16][7][256];
-		tabelaAcoesSemanticas[5][3][125] = "acaoPadrao";
+		tabelaAcoesSemanticas[5][3][125] = "deletarEscopo";
 		tabelaAcoesSemanticas[0][1][5] = "acaoPadrao";
 		tabelaAcoesSemanticas[0][1][3] = "acaoPadrao";
 		tabelaAcoesSemanticas[0][1][4] = "acaoPadrao";
@@ -29,17 +29,17 @@ public class AnalisadorSemantico {
 		tabelaAcoesSemanticas[11][1][10] = "acaoPadrao";
 		tabelaAcoesSemanticas[1][2][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[12][2][0] = "acaoPadrao";
-		tabelaAcoesSemanticas[13][3][123] = "acaoPadrao";
+		tabelaAcoesSemanticas[13][3][123] = "criarEscopo";
 		tabelaAcoesSemanticas[2][2][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[8][3][41] = "acaoPadrao";
-		tabelaAcoesSemanticas[3][3][123] = "acaoPadrao";
-		tabelaAcoesSemanticas[9][3][123] = "acaoPadrao";
-		tabelaAcoesSemanticas[15][3][125] = "acaoPadrao";
+		tabelaAcoesSemanticas[3][3][123] = "criarEscopo";
+		tabelaAcoesSemanticas[9][3][123] = "criarEscopo";
+		tabelaAcoesSemanticas[15][3][125] = "deletarEscopo";
 		tabelaAcoesSemanticas[4][3][40] = "acaoPadrao";
-		tabelaAcoesSemanticas[10][3][125] = "acaoPadrao";
+		tabelaAcoesSemanticas[10][3][125] = "deletarEscopo";
 		this.mapaAcoesSemanticas.put("programa", tabelaAcoesSemanticas);
 
-		// Sum‡quina parametros
+		// Subm‡quina parametros
 		tabelaAcoesSemanticas = new String[15][7][256];
 		tabelaAcoesSemanticas[5][4][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[0][1][3] = "acaoPadrao";
@@ -51,13 +51,13 @@ public class AnalisadorSemantico {
 		tabelaAcoesSemanticas[6][2][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[1][2][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[12][4][0] = "acaoPadrao";
-		tabelaAcoesSemanticas[7][3][123] = "acaoPadrao";
+		tabelaAcoesSemanticas[7][3][123] = "criarEscopo";
 		tabelaAcoesSemanticas[13][3][93] = "acaoPadrao";
 		tabelaAcoesSemanticas[2][2][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[14][3][44] = "acaoPadrao";
 		tabelaAcoesSemanticas[3][3][91] = "acaoPadrao";
 		tabelaAcoesSemanticas[3][3][44] = "acaoPadrao";
-		tabelaAcoesSemanticas[9][3][125] = "acaoPadrao";
+		tabelaAcoesSemanticas[9][3][125] = "deletarEscopo";
 		tabelaAcoesSemanticas[4][1][3] = "acaoPadrao";
 		tabelaAcoesSemanticas[4][1][4] = "acaoPadrao";
 		tabelaAcoesSemanticas[4][1][6] = "acaoPadrao";
@@ -65,7 +65,7 @@ public class AnalisadorSemantico {
 		tabelaAcoesSemanticas[10][3][93] = "acaoPadrao";
 		this.mapaAcoesSemanticas.put("parametros", tabelaAcoesSemanticas);
 
-		// Sum‡quina declaracoes
+		// Subm‡quina declaracoes
 		tabelaAcoesSemanticas = new String[16][7][256];
 		tabelaAcoesSemanticas[5][3][91] = "acaoPadrao";
 		tabelaAcoesSemanticas[5][3][44] = "acaoPadrao";
@@ -87,7 +87,7 @@ public class AnalisadorSemantico {
 		tabelaAcoesSemanticas[7][4][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[2][2][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[13][4][0] = "acaoPadrao";
-		tabelaAcoesSemanticas[8][3][123] = "acaoPadrao";
+		tabelaAcoesSemanticas[8][3][123] = "criarEscopo";
 		tabelaAcoesSemanticas[3][2][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[14][3][93] = "acaoPadrao";
 		tabelaAcoesSemanticas[15][3][44] = "acaoPadrao";
@@ -96,10 +96,10 @@ public class AnalisadorSemantico {
 		tabelaAcoesSemanticas[4][1][4] = "acaoPadrao";
 		tabelaAcoesSemanticas[4][1][6] = "acaoPadrao";
 		tabelaAcoesSemanticas[4][1][10] = "acaoPadrao";
-		tabelaAcoesSemanticas[10][3][125] = "acaoPadrao";
+		tabelaAcoesSemanticas[10][3][125] = "deletarEscopo";
 		this.mapaAcoesSemanticas.put("declaracoes", tabelaAcoesSemanticas);
 
-		// Sum‡quina comandos
+		// Subm‡quina comandos
 		tabelaAcoesSemanticas = new String[37][7][256];
 		tabelaAcoesSemanticas[27][3][93] = "acaoPadrao";
 		tabelaAcoesSemanticas[5][3][40] = "acaoPadrao";
@@ -111,7 +111,7 @@ public class AnalisadorSemantico {
 		tabelaAcoesSemanticas[0][1][13] = "acaoPadrao";
 		tabelaAcoesSemanticas[0][1][12] = "acaoPadrao";
 		tabelaAcoesSemanticas[0][1][14] = "acaoPadrao";
-		tabelaAcoesSemanticas[22][3][125] = "acaoPadrao";
+		tabelaAcoesSemanticas[22][3][125] = "deletarEscopo";
 		tabelaAcoesSemanticas[17][3][40] = "acaoPadrao";
 		tabelaAcoesSemanticas[28][3][61] = "acaoPadrao";
 		tabelaAcoesSemanticas[1][3][46] = "acaoPadrao";
@@ -119,13 +119,13 @@ public class AnalisadorSemantico {
 		tabelaAcoesSemanticas[1][3][61] = "acaoPadrao";
 		tabelaAcoesSemanticas[1][3][40] = "acaoPadrao";
 		tabelaAcoesSemanticas[23][3][93] = "acaoPadrao";
-		tabelaAcoesSemanticas[34][3][123] = "acaoPadrao";
+		tabelaAcoesSemanticas[34][3][123] = "criarEscopo";
 		tabelaAcoesSemanticas[12][3][44] = "acaoPadrao";
 		tabelaAcoesSemanticas[12][3][41] = "acaoPadrao";
 		tabelaAcoesSemanticas[29][3][46] = "acaoPadrao";
 		tabelaAcoesSemanticas[29][3][61] = "acaoPadrao";
 		tabelaAcoesSemanticas[2][3][40] = "acaoPadrao";
-		tabelaAcoesSemanticas[35][3][125] = "acaoPadrao";
+		tabelaAcoesSemanticas[35][3][125] = "deletarEscopo";
 		tabelaAcoesSemanticas[13][2][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[13][1][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[13][1][2] = "acaoPadrao";
@@ -165,10 +165,10 @@ public class AnalisadorSemantico {
 		tabelaAcoesSemanticas[10][4][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[10][3][41] = "acaoPadrao";
 		tabelaAcoesSemanticas[32][3][41] = "acaoPadrao";
-		tabelaAcoesSemanticas[21][3][123] = "acaoPadrao";
+		tabelaAcoesSemanticas[21][3][123] = "criarEscopo";
 		this.mapaAcoesSemanticas.put("comandos", tabelaAcoesSemanticas);
 
-		// Sum‡quina expressaoBooleana
+		// Subm‡quina expressaoBooleana
 		tabelaAcoesSemanticas = new String[13][7][256];
 		tabelaAcoesSemanticas[0][1][7] = "acaoPadrao";
 		tabelaAcoesSemanticas[0][1][8] = "acaoPadrao";
@@ -197,7 +197,7 @@ public class AnalisadorSemantico {
 		tabelaAcoesSemanticas[10][1][19] = "acaoPadrao";
 		this.mapaAcoesSemanticas.put("expressaoBooleana", tabelaAcoesSemanticas);
 
-		// Sum‡quina expressao
+		// Subm‡quina expressao
 		tabelaAcoesSemanticas = new String[16][7][256];
 		tabelaAcoesSemanticas[5][3][41] = "acaoPadrao";
 		tabelaAcoesSemanticas[0][3][45] = "acaoPadrao";
@@ -245,7 +245,7 @@ public class AnalisadorSemantico {
 		tabelaAcoesSemanticas[10][4][0] = "acaoPadrao";
 		this.mapaAcoesSemanticas.put("expressao", tabelaAcoesSemanticas);
 
-		// Sum‡quina texto
+		// Subm‡quina texto
 		tabelaAcoesSemanticas = new String[13][7][256];
 		tabelaAcoesSemanticas[5][2][0] = "acaoPadrao";
 		tabelaAcoesSemanticas[5][4][0] = "acaoPadrao";

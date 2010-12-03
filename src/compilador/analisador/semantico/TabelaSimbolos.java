@@ -9,7 +9,6 @@ import compilador.helper.ArrayHelper;
 public class TabelaSimbolos {
 	
 	private Mapa<Int,TSLinha> linhas;
-	private static int PROXIMA_CHAVE = 0;
 	
 	public TabelaSimbolos()
 	{
@@ -28,11 +27,12 @@ public class TabelaSimbolos {
 		return -1;
 	}
 	
-	public int inserirSimbolo(int[] nome)
+	public void inserirSimbolo(int chave, int[] nome)
 	{
-		int chave =  PROXIMA_CHAVE; 
-		this.linhas.put(new Int(PROXIMA_CHAVE), new TSLinha(nome));
-		PROXIMA_CHAVE++;
-		return chave;
+		this.linhas.put(new Int(chave), new TSLinha(nome));
+	}
+	
+	public TSLinha getTSLinha(int chave) {
+		return this.linhas.get(new Int(chave));
 	}
 }
