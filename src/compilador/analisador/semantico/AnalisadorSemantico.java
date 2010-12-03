@@ -276,22 +276,29 @@ public class AnalisadorSemantico {
 	public void executarAcaoSemantica(String nomeSubmaquina, int estado, Token token) {
 		String[][][] tabelaAcoesSemanticas = this.mapaAcoesSemanticas.get(nomeSubmaquina);
 		
-		int valor = token.getID(); // Arrumar.
+		int valor;
+		int classeToken = token.getClasse();
+		
+		// Ajusta o valor de acordo com a classe do Token.
+		if(classeToken == Token.CLASSE_IDENTIFICADOR || classeToken == Token.CLASSE_NUMERO_INTEIRO || classeToken == Token.CLASSE_STRING)
+			valor = 0;
+		else
+			valor = token.getID();
 				
 		String m = tabelaAcoesSemanticas[estado][token.getClasse()][valor];
-		
-		if(m != null)
-			System.out.println(m);
-		
 		if(m != null) {
+			System.out.println(m);
+			
 			try {
 				// Executa a ação semântica usando Reflection.
 				Class<?> classe = Class.forName("compilador.analisador.semantico.AcoesSemanticas");
 				Method metodo = classe.getMethod(m, new Class[0]);
 				metodo.invoke(null, new Object[0]);
 				
+			} catch (NoSuchMethodException e) {
+				// Nada.
 			} catch(Exception e) {
-				// Não faz nada.
+				e.printStackTrace();
 			}
 		}	
 	}
