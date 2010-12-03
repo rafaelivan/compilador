@@ -4,24 +4,6 @@ import compilador.estruturas.String;
 
 
 public class Escopos {
-
-	/*
-	 * Categorias de s’mbolos.
-	 */
-	public final static int CATEGORIA_SIMBOLO_VARIAVEL = 0;
-	public final static int CATEGORIA_SIMBOLO_FUNCAO = 1;
-	public final static int CATEGORIA_SIMBOLO_VETOR = 2;
-	public final static int CATEGORIA_SIMBOLO_MATRIZ = 3;
-	public final static int CATEGORIA_SIMBOLO_PARAMETRO = 4;
-	
-	/*
-	 * Mapeamento de tipos de s’mbolos.
-	 */
-	public static final int TIPO_SIMBOLO_VOID = -1;
-	public static final int TIPO_SIMBOLO_INT = 0;
-	public static final int TIPO_SIMBOLO_CHAR = 1;
-	public static final int TIPO_SIMBOLO_BOOLEAN = 2;
-	public static final int TIPO_SIMBOLO_STRING = 3;
 	
 	private static TabelaSimbolos[] ESCOPOS = new TabelaSimbolos[100];
 	

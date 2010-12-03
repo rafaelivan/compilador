@@ -2,22 +2,18 @@ int fatorial(int n) {
 	if(n <= 1) {
 		return 1;
 	} else {
-		int a;
+		int aux;
 	
-		a = +n-1;
-		return fatorial(a);
+		aux = +n-1;
+		return fatorial(aux);
 	}
 }
 
 main {
-	int var, b;
+	int var, resultado;
 	
-	var = fatorial(3);
-	write("fatorial 3 eh: " + var);
+	var = 3;
+	resultado = fatorial(var);
 	
-	b = 0;
-	while(b < 100) {
-		write("Fazer um compilador eh algo inesquecivel...");
-		b = +b+1;
-	}
+	write("Fatorial(" + var + ") = " + resultado);
 }

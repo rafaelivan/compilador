@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import compilador.analisador.lexico.AnalisadorLexico;
 import compilador.analisador.lexico.Token;
+import compilador.analisador.semantico.AnalisadorSemantico;
 import compilador.analisador.semantico.Escopos;
 import compilador.analisador.semantico.TabelaSimbolos;
 import compilador.estruturas.ListaLigada;
@@ -52,6 +53,7 @@ public class AnalisadorSintatico {
 			
 			while(lexico.haMaisTokens()) {
 				token = lexico.proximoToken();
+				AnalisadorSemantico.armazenarToken(token);
 				this.ape.consumirToken(token);
 				
 				// Verifica se houve erro sint‡tico no aut™mato de pilha.

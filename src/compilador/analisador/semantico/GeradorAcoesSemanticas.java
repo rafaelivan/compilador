@@ -40,6 +40,7 @@ public class GeradorAcoesSemanticas {
 		System.out.println("tabelaAcoesSemanticas = new String["+doc.getElementsByTagName("state").getLength()+"][7][256];");
 		
 		int estadoOrigem = -1;
+		int estadoDestino = -1;
 		int classeToken = -1;
 		int valorToken = -1;
 		
@@ -50,6 +51,8 @@ public class GeradorAcoesSemanticas {
 			for(int j = 0; j < child.getLength(); j++) {
 				if(child.item(j).getNodeName().equals("from")) {
 					estadoOrigem = Integer.parseInt(child.item(j).getChildNodes().item(0).getNodeValue());
+				} else if(child.item(j).getNodeName().equals("to")) {
+					estadoDestino = Integer.parseInt(child.item(j).getChildNodes().item(0).getNodeValue());
 				} else if(child.item(j).getNodeName().equals("read")) {
 					String valor = child.item(j).getChildNodes().item(0).getNodeValue();
 					
@@ -59,19 +62,19 @@ public class GeradorAcoesSemanticas {
 						if(valor.equals("\"id\"")) {
 							classeToken = Token.CLASSE_IDENTIFICADOR;
 							
-							System.out.println("tabelaAcoesSemanticas["+estadoOrigem+"]["+classeToken+"][0] = \"acaoPadrao\";");
+							System.out.println("tabelaAcoesSemanticas["+estadoOrigem+"]["+classeToken+"][0] = \""+nome+"_"+estadoOrigem+"_"+classeToken+"_0_"+estadoDestino+"\";");
 						} else if(valor.equals("\"inteiro\"")) {
 							classeToken = Token.CLASSE_NUMERO_INTEIRO;
 							
-							System.out.println("tabelaAcoesSemanticas["+estadoOrigem+"]["+classeToken+"][0] = \"acaoPadrao\";");
+							System.out.println("tabelaAcoesSemanticas["+estadoOrigem+"]["+classeToken+"][0] = \""+nome+"_"+estadoOrigem+"_"+classeToken+"_0_"+estadoDestino+"\";");
 						} else if(valor.equals("\"string\"")) {
 							classeToken = Token.CLASSE_STRING;
 							
-							System.out.println("tabelaAcoesSemanticas["+estadoOrigem+"]["+classeToken+"][0] = \"acaoPadrao\";");
+							System.out.println("tabelaAcoesSemanticas["+estadoOrigem+"]["+classeToken+"][0] = \""+nome+"_"+estadoOrigem+"_"+classeToken+"_0_"+estadoDestino+"\";");
 						} else if(valor.length() == 3) {
 							classeToken = Token.CLASSE_CARACTER_ESPECIAL;
 							valorToken = (int)valor.charAt(1);
-							System.out.println("tabelaAcoesSemanticas["+estadoOrigem+"]["+classeToken+"]["+valorToken+"] = \"acaoPadrao\";");
+							System.out.println("tabelaAcoesSemanticas["+estadoOrigem+"]["+classeToken+"]["+valorToken+"] = \""+nome+"_"+estadoOrigem+"_"+classeToken+"_"+valorToken+"_"+estadoDestino+"\";");
 						} else {
 							char[] charArray = valor.substring(1, valor.length() - 1).toCharArray();
 							int[] aux = new int[charArray.length];
@@ -85,7 +88,7 @@ public class GeradorAcoesSemanticas {
 								valorToken = chave;
 							}
 							
-							System.out.println("tabelaAcoesSemanticas["+estadoOrigem+"]["+classeToken+"]["+valorToken+"] = \"acaoPadrao\";");
+							System.out.println("tabelaAcoesSemanticas["+estadoOrigem+"]["+classeToken+"]["+valorToken+"] = \""+nome+"_"+estadoOrigem+"_"+classeToken+"_"+valorToken+"_"+estadoDestino+"\";");
 						}
 					}	
 				}
