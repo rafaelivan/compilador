@@ -299,11 +299,15 @@ public class AnalisadorSemantico {
 				// Nada.
 			} catch(Exception e) {
 				e.printStackTrace();
+				System.out.println("=====>" + m);
 			}
 		}	
 	}
 	
 	public static void armazenarToken(Token token) {
 		ParametrosAcoesSemanticas.TOKEN = token;
+		
+		if(token.getClasse() == Token.CLASSE_IDENTIFICADOR)
+			ParametrosAcoesSemanticas.TOKEN_ID_ANTERIOR = token;
 	}
 }

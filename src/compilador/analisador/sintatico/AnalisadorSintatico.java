@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import compilador.analisador.lexico.AnalisadorLexico;
 import compilador.analisador.lexico.Token;
+import compilador.analisador.semantico.AcoesSemanticas;
 import compilador.analisador.semantico.AnalisadorSemantico;
 import compilador.analisador.semantico.Escopos;
 import compilador.analisador.semantico.TabelaSimbolos;
@@ -38,8 +39,7 @@ public class AnalisadorSintatico {
 		this.erros = new ListaLigada<ErroSintatico>();
 		
 		// Inicializa a primeira tabela de s’mbolos.
-		TabelaSimbolos ts = new TabelaSimbolos();
-		Escopos.putTabelaSimbolos(ts);
+		AcoesSemanticas.criarEscopo();
 	}
 	
 	/**

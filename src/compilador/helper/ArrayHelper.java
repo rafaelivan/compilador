@@ -102,8 +102,8 @@ public class ArrayHelper {
 		for(int i = 0; i < v1.length; i++)
 			resultado[i] = v1[i];
 		
-		for(int i = v1.length; i < v1.length + v2.length; i++)
-			resultado[i] = v2[i];
+		for(int i = 0; i < v2.length; i++)
+			resultado[i + v1.length] = v2[i];
 		
 		return resultado;
 	}

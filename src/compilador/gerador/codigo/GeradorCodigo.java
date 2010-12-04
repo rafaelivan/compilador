@@ -48,7 +48,7 @@ public class GeradorCodigo {
 	
 	/**
 	 * Gera o c—digo-objeto completo.
-	 * @return
+	 * @return uma <code>compilador.estruturas.String</code> contendo todo o c—digo-objeto gerado.
 	 */
 	public String gerarCodigo() {
 		String codigo = new String(("@ /"+GeradorCodigo.ENDERECO_AREA_CODIGO+"\n").toCharArray());

@@ -48,6 +48,17 @@ public class Pilha<T> {
 	}
 	
 	/**
+	 * Retorno o elemento do topo da pilha, mas n‹o o retira dela.
+	 * @return o elemento do topo da pilha. 
+	 */
+	public T first() {
+		if(this.vazia())
+			return null;
+		
+		return this.topo.getValor();
+	}
+	
+	/**
 	 * Verifica se a pilha est‡ vazia.
 	 * 
 	 * @return <code>true</code>, caso a pilha esteja vazia. <code>false</code>, caso contr‡rio.

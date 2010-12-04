@@ -40,6 +40,10 @@ public class String {
 		this.imprimir();
 		System.out.println();
 	}
+	
+	public String append(char[] ch) {
+		return new String(ArrayHelper.concatenarVetoresChar(this.chars, ch));
+	}
 		
 	@Override
 	public boolean equals(Object obj) {

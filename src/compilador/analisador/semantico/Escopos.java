@@ -66,8 +66,12 @@ public class Escopos {
 		Escopos.recuperarTabelaSimbolos(chave).getTSLinha(chave).setDeclarado(declarado);
 	}
 	
-	public static void addSimboloParametro(int chave, int parametro) {
+	public static void addSimboloParametro(int chave, TSLinha parametro) {
 		Escopos.recuperarTabelaSimbolos(chave).getTSLinha(chave).addToParametros(parametro);
+	}
+	
+	public static void setSimboloRotulo(int chave, String rotulo) {
+		Escopos.recuperarTabelaSimbolos(chave).getTSLinha(chave).setRotulo(rotulo);
 	}
 	
 	public static int getSimboloTipo(int chave) {
@@ -90,8 +94,12 @@ public class Escopos {
 		return Escopos.recuperarTabelaSimbolos(chave).getTSLinha(chave).isDeclarado();
 	}
 	
-	public static int[] getSimboloParametros(int chave) {
+	public static TSLinha[] getSimboloParametros(int chave) {
 		return Escopos.recuperarTabelaSimbolos(chave).getTSLinha(chave).getParametros();
+	}
+	
+	public static String getSimboloRotulo(int chave) {
+		return Escopos.recuperarTabelaSimbolos(chave).getTSLinha(chave).getRotulo();
 	}
 	
 	/**
