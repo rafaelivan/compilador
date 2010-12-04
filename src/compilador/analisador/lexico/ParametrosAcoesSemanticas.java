@@ -22,16 +22,17 @@ public class ParametrosAcoesSemanticas {
 	public static final int TIPO_SIMBOLO_STRING = 3;
 	public static final int TIPO_SIMBOLO_VOID = 4;
 	
-	public static Token TOKEN;				// O token referente ao símbolo.
+	public static Token TOKEN;						// O token referente ao símbolo.
 	public static Token TOKEN_ID_ANTERIOR;	
-	public static int TIPO;					// Tipo do símbolo.
-	public static int CATEGORIA;			// Categoria do símbolo.
-	public static String ENDERECO;			// Endereço de 
-	public static int TAMANHO;				// Tamanho do símbolo na memória.
-	public static boolean DECLARADO;		// Se o símbolo já foi declarado.
-	public static int[] PARAMETROS;			// Parâmetros passados (no caso de funções).
-	public static int ID_FUNCAO;			// Id da função na tabela de símbolos.
-	public static String ROTULO;			// Rótulo do símbolo.
+	public static Token TOKEN_LADO_ESQUERDO_ATRIB;
+	public static int TIPO;							// Tipo do símbolo.
+	public static int CATEGORIA;					// Categoria do símbolo.
+	public static String ENDERECO;					// Endereço de 
+	public static int TAMANHO;						// Tamanho do símbolo na memória.
+	public static boolean DECLARADO;				// Se o símbolo já foi declarado.
+	public static int[] PARAMETROS;					// Parâmetros passados (no caso de funções).
+	public static int ID_FUNCAO;					// Id da função na tabela de símbolos.
+	public static String ROTULO;					// Rótulo do símbolo.
 	
 	public static void limparParametros() {
 		TOKEN = null;
@@ -41,6 +42,5 @@ public class ParametrosAcoesSemanticas {
 		TAMANHO = -1;
 		DECLARADO = false;
 		PARAMETROS = null;
-		ID_FUNCAO = -1;
 	}
 }

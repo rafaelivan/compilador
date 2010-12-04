@@ -1,20 +1,12 @@
 int fatorial(int n) {
-	int fat;
-	fat = 1;
+	int a, b;
 	
-	while(n > 0) {
-		fat = +fat*n;
-		n = +n-1;
-	}
-	
-	return fat;
+	a = 1;
+	b = 1+2*(6/2);
 }
 
 main {
-	int var, resultado;
+	int c;
 	
-	var = 3;
-	resultado = fatorial(var);
-	
-	write("Fatorial(" + var + ") = " + resultado);
+	c = 12;
 }

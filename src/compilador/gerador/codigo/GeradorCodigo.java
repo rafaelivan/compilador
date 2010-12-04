@@ -51,12 +51,12 @@ public class GeradorCodigo {
 	 * @return uma <code>compilador.estruturas.String</code> contendo todo o c—digo-objeto gerado.
 	 */
 	public String gerarCodigo() {
-		String codigo = new String(("@ /"+GeradorCodigo.ENDERECO_AREA_CODIGO+"\n").toCharArray());
+		String codigo = new String(("@ /"+GeradorCodigo.ENDERECO_AREA_CODIGO+"\n\tJP\tMAIN\n\n").toCharArray());
 		
 		while(!this.bufferCodigo.estaVazio())
 			codigo = new String(ArrayHelper.concatenarVetoresChar(codigo.toCharArray(), this.bufferCodigo.proximo().toCharArray()));
 		
-		codigo = new String(ArrayHelper.concatenarVetoresChar(codigo.toCharArray(), ("@ /"+GeradorCodigo.ENDERECO_AREA_DADOS+"\n").toCharArray()));
+		codigo = new String(ArrayHelper.concatenarVetoresChar(codigo.toCharArray(), ("\n@ /"+GeradorCodigo.ENDERECO_AREA_DADOS+"\n").toCharArray()));
 		
 		while(!this.bufferDados.estaVazio())
 			codigo = new String(ArrayHelper.concatenarVetoresChar(codigo.toCharArray(), this.bufferDados.proximo().toCharArray()));

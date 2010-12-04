@@ -17,11 +17,10 @@ public class TabelaSimbolos {
 	
 	public int recuperarChave(int[] buffer) {
 		ListaLigada<Int> chaves = this.linhas.chaves();
-		for(int i = 0; i< chaves.tamanho(); i++)
-		{
-			if(linhas.get(new Int(i)) != null && ArrayHelper.compararVetoresInt(linhas.get(new Int(i)).getNome(), buffer))
-			{
-				return i;
+		
+		for(int i = 0; i < chaves.tamanho(); i++) {
+			if(linhas.get(chaves.get(i)) != null && ArrayHelper.compararVetoresInt(linhas.get(chaves.get(i)).getNome(), buffer)) {
+				return chaves.get(i).getValue();
 			}
 		}
 		return -1;
