@@ -1,12 +1,13 @@
-int fatorial(int n ) {
-	if(n <= 1) {
-		return 1;
-	} else {
-		int aux;
+int fatorial(int n) {
+	int fat;
+	fat = 1;
 	
-		aux = +n-1;
-		return fatorial(aux);
+	while(n > 0) {
+		fat = +fat*n;
+		n = +n-1;
 	}
+	
+	return fat;
 }
 
 main {

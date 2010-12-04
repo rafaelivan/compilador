@@ -1,4 +1,4 @@
-package compilador.analisador.semantico;
+package compilador.gerador.acoes;
 
 import java.io.File;
 
@@ -9,6 +9,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import compilador.analisador.lexico.Token;
+import compilador.analisador.semantico.TabelaPalavrasReservadas;
 
 public class GeradorAcoesSemanticas {
 

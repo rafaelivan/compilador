@@ -7,11 +7,11 @@ public class ParametrosAcoesSemanticas {
 	/*
 	 * Categorias de s’mbolos.
 	 */
-	public final static int CATEGORIA_SIMBOLO_VARIAVEL = 0;
-	public final static int CATEGORIA_SIMBOLO_FUNCAO = 1;
-	public final static int CATEGORIA_SIMBOLO_VETOR = 2;
-	public final static int CATEGORIA_SIMBOLO_MATRIZ = 3;
-	public final static int CATEGORIA_SIMBOLO_PARAMETRO = 4;
+	public static final int CATEGORIA_SIMBOLO_VARIAVEL = 0;
+	public static final int CATEGORIA_SIMBOLO_FUNCAO = 1;
+	public static final int CATEGORIA_SIMBOLO_VETOR = 2;
+	public static final int CATEGORIA_SIMBOLO_MATRIZ = 3;
+	public static final int CATEGORIA_SIMBOLO_PARAMETRO = 4;
 	
 	/*
 	 * Mapeamento de tipos de s’mbolos.

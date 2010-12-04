@@ -88,4 +88,23 @@ public class ArrayHelper {
 		
 		return false;
 	}
+	
+	/**
+	 * Concatena dois vetores.
+	 * 
+	 * @param vetor1
+	 * @param vetor2
+	 * @return retorna o vetor resultante da concatenação.
+	 */
+	public static char[] concatenarVetoresChar(char[] v1, char[] v2) {
+		char[] resultado = new char[v1.length + v2.length];
+		
+		for(int i = 0; i < v1.length; i++)
+			resultado[i] = v1[i];
+		
+		for(int i = v1.length; i < v1.length + v2.length; i++)
+			resultado[i] = v2[i];
+		
+		return resultado;
+	}
 }

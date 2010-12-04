@@ -306,5 +306,4 @@ public class AnalisadorSemantico {
 	public static void armazenarToken(Token token) {
 		ParametrosAcoesSemanticas.TOKEN = token;
 	}
-	
 }

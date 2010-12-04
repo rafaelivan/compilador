@@ -1,4 +1,4 @@
-package compilador.analisador.sintatico;
+package compilador.gerador.submaquinas;
 
 import java.io.File;
 
@@ -10,6 +10,7 @@ import org.w3c.dom.NodeList;
 
 import compilador.analisador.lexico.Token;
 import compilador.analisador.semantico.TabelaPalavrasReservadas;
+import compilador.analisador.sintatico.Submaquina;
 import compilador.estruturas.Mapa;
 import compilador.helper.ArrayHelper;
 

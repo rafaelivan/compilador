@@ -1,5 +1,6 @@
 package compilador.analisador.sintatico;
 
+
 public class Par {
 	
 	/**

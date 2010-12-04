@@ -5,6 +5,12 @@ import compilador.analisador.lexico.ParametrosAcoesSemanticas;
 
 public class AcoesSemanticas {
 	
+	/**
+	 * Contador para criação dos rótulos dos IF.
+	 */
+	private static int CONTADOR_IF = 0;
+	
+	
 	/* ************************ */
 	/* AÇÕES SEMÂNTICAS GLOBAIS */
 	/* ************************ */
@@ -82,6 +88,8 @@ public class AcoesSemanticas {
 	// Submáquina COMANDOS
 	
 	public static void comandos_0_1_0_2() {
-		// TODO: Leitura do if - CONTAIF...
+		// Rotulo a ser impresso no código
+		String rotulo = "IF"+CONTADOR_IF;
+		CONTADOR_IF++;
 	}
 }

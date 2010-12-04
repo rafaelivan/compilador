@@ -6,6 +6,7 @@ import compilador.estruturas.ListaLigada;
 import compilador.estruturas.Mapa;
 import compilador.estruturas.Pilha;
 import compilador.estruturas.String;
+import compilador.gerador.submaquinas.GeradorSubmaquinas;
 import compilador.helper.ArrayHelper;
 
 public class AutomatoPilhaEstruturado {
