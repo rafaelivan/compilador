@@ -2,7 +2,6 @@ package compilador.analisador.semantico;
 
 import compilador.analisador.lexico.ParametrosAcoesSemanticas;
 import compilador.analisador.lexico.Token;
-import compilador.analisador.sintatico.ErroSintatico;
 import compilador.estruturas.Int;
 import compilador.estruturas.Pilha;
 import compilador.estruturas.String;
@@ -51,6 +50,8 @@ public class AcoesSemanticas {
 	 */
 	private static int CONTADOR_PARAMETROS = 0;
 	
+	private static int CONTADOR_FINAL_WHILE = 0;
+	
 	/**
 	 * Pilha para controlar a compatibilidade de tipos.
 	 */
@@ -65,6 +66,13 @@ public class AcoesSemanticas {
 	 * Pilha para manipular os operadores das expressões.
 	 */
 	private static Pilha<Int> PILHA_OPERADORES = new Pilha<Int>();
+	
+	/**
+	 * Pilha de rótulos.
+	 */
+	private static Pilha<String> PILHA_ROTULOS = new Pilha<String>();
+	
+	private static Pilha<String> PILHA_ROTULO_END_WHILE = new Pilha<String>();
 	
 	/* ************************ */
 	/* AÇÕES SEMÂNTICAS GLOBAIS */
@@ -322,11 +330,17 @@ public class AcoesSemanticas {
 		GERADOR_CODIGO.addAreaCodigo(new String(("\tMM\tEXT_"+ParametrosAcoesSemanticas.ID_FUNCAO+"\n").toCharArray()));
 		GERADOR_CODIGO.addAreaCodigo(new String(("\tRS\t").toCharArray()));
 		GERADOR_CODIGO.addAreaCodigo(Escopos.getSimboloRotulo(ParametrosAcoesSemanticas.ID_FUNCAO).append("\n".toCharArray()));
+		
+		ParametrosAcoesSemanticas.limparParametros();
+		AcoesSemanticas.deletarEscopo();
 	}
 	
 	public static void programa_5_3_125_7() {
 		GERADOR_CODIGO.addAreaCodigo(new String("\t#\tMAIN\n".toCharArray()));
 		GERADOR_CODIGO.gerarCodigo().imprimir();
+		
+		ParametrosAcoesSemanticas.limparParametros();
+		AcoesSemanticas.deletarEscopo();
 	}
 	
 	// Submáquina PARÂMETROS
@@ -493,6 +507,277 @@ public class AcoesSemanticas {
 		}
 		
 		CONTADOR_PARAMETROS++;
+	}
+	
+	public static void comandos_13_1_0_2() {
+		AcoesSemanticas.criarEscopo();
+	}
+	
+	public static void comandos_2_3_40_30() {
+		
+	}
+	
+	public static void comandos_19_3_62_24() {
+		Object operando = AcoesSemanticas.desempilharOperando();
+		
+		ParametrosAcoesSemanticas.COMPARADOR = ParametrosAcoesSemanticas.COMPARADOR_MAIOR;
+		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+operando.toString()+"\n").toCharArray()));
+		}
+		
+		GERADOR_CODIGO.addAreaCodigo(new String(("\t-\t").toCharArray()));
+	}
+	
+	public static void comandos_19_3_60_24() {
+		ParametrosAcoesSemanticas.COMPARADOR = ParametrosAcoesSemanticas.COMPARADOR_MENOR;
+		
+		Object operando = AcoesSemanticas.desempilharOperando();		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+operando.toString()+"\n").toCharArray()));
+		}
+		
+		GERADOR_CODIGO.addAreaCodigo(new String(("\t-\t").toCharArray()));
+	}
+	
+	public static void comandos_19_1_16_24() {
+		ParametrosAcoesSemanticas.COMPARADOR = ParametrosAcoesSemanticas.COMPARADOR_IGUAL;
+		
+		Object operando = AcoesSemanticas.desempilharOperando();		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+operando.toString()+"\n").toCharArray()));
+		}
+		
+		GERADOR_CODIGO.addAreaCodigo(new String(("\t-\t").toCharArray()));
+	}
+	
+	public static void comandos_19_1_17_24() {
+		ParametrosAcoesSemanticas.COMPARADOR = ParametrosAcoesSemanticas.COMPARADOR_MENOR_IGUAL;
+		
+		Object operando = AcoesSemanticas.desempilharOperando();		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+operando.toString()+"\n").toCharArray()));
+		}
+		
+		GERADOR_CODIGO.addAreaCodigo(new String(("\t-\t").toCharArray()));
+	}
+	
+	public static void comandos_19_1_18_24() {
+		ParametrosAcoesSemanticas.COMPARADOR = ParametrosAcoesSemanticas.COMPARADOR_MAIOR_IGUAL;
+		
+		Object operando = AcoesSemanticas.desempilharOperando();		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+operando.toString()+"\n").toCharArray()));
+		}
+		
+		GERADOR_CODIGO.addAreaCodigo(new String(("\t-\t").toCharArray()));
+	}
+
+	public static void comandos_19_1_19_24() {
+		ParametrosAcoesSemanticas.COMPARADOR = ParametrosAcoesSemanticas.COMPARADOR_DIFERENTE;
+		
+		Object operando = AcoesSemanticas.desempilharOperando();		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+operando.toString()+"\n").toCharArray()));
+		}
+		
+		GERADOR_CODIGO.addAreaCodigo(new String(("\t-\t").toCharArray()));
+	}
+	
+	public static void comandos_31_3_62_33() {
+		Object operando = AcoesSemanticas.desempilharOperando();
+		
+		ParametrosAcoesSemanticas.COMPARADOR = ParametrosAcoesSemanticas.COMPARADOR_MAIOR;
+		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+operando.toString()+"\n").toCharArray()));
+		}
+		
+		GERADOR_CODIGO.addAreaCodigo(new String(("\t-\t").toCharArray()));
+	}
+	
+	public static void comandos_31_3_60_33() {
+		ParametrosAcoesSemanticas.COMPARADOR = ParametrosAcoesSemanticas.COMPARADOR_MENOR;
+		
+		Object operando = AcoesSemanticas.desempilharOperando();		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+operando.toString()+"\n").toCharArray()));
+		}
+		
+		GERADOR_CODIGO.addAreaCodigo(new String(("\t-\t").toCharArray()));
+	}
+	
+	public static void comandos_31_1_16_33() {
+		ParametrosAcoesSemanticas.COMPARADOR = ParametrosAcoesSemanticas.COMPARADOR_IGUAL;
+		
+		Object operando = AcoesSemanticas.desempilharOperando();		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+operando.toString()+"\n").toCharArray()));
+		}
+		
+		GERADOR_CODIGO.addAreaCodigo(new String(("\t-\t").toCharArray()));
+	}
+	
+	public static void comandos_31_1_17_33() {
+		ParametrosAcoesSemanticas.COMPARADOR = ParametrosAcoesSemanticas.COMPARADOR_MENOR_IGUAL;
+		
+		Object operando = AcoesSemanticas.desempilharOperando();		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+operando.toString()+"\n").toCharArray()));
+		}
+		
+		GERADOR_CODIGO.addAreaCodigo(new String(("\t-\t").toCharArray()));
+	}
+	
+	public static void comandos_31_1_18_33() {
+		ParametrosAcoesSemanticas.COMPARADOR = ParametrosAcoesSemanticas.COMPARADOR_MAIOR_IGUAL;
+		
+		Object operando = AcoesSemanticas.desempilharOperando();		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+operando.toString()+"\n").toCharArray()));
+		}
+		
+		GERADOR_CODIGO.addAreaCodigo(new String(("\t-\t").toCharArray()));
+	}
+
+	public static void comandos_31_1_19_33() {
+		ParametrosAcoesSemanticas.COMPARADOR = ParametrosAcoesSemanticas.COMPARADOR_DIFERENTE;
+		
+		Object operando = AcoesSemanticas.desempilharOperando();		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+operando.toString()+"\n").toCharArray()));
+		}
+		
+		GERADOR_CODIGO.addAreaCodigo(new String(("\t-\t").toCharArray()));
+	}
+	
+	public static void comandos_32_3_41_34() {
+		Object operando = AcoesSemanticas.desempilharOperando();
+		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("K_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String((operando.toString()+"\n").toCharArray()));
+		}
+		
+		String rotulo = new String(("IF_"+CONTADOR_IF).toCharArray());
+		CONTADOR_IF++;
+		PILHA_ROTULOS.push(rotulo);
+		
+		switch (ParametrosAcoesSemanticas.COMPARADOR) {
+			case ParametrosAcoesSemanticas.COMPARADOR_MAIOR:
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJZ\t"+rotulo.toString()+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
+				break;
+			case ParametrosAcoesSemanticas.COMPARADOR_MENOR:
+				// TODO: Verificar se é positivo.
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJZ\t"+rotulo.toString()+"\n").toCharArray()));
+				break;
+			case ParametrosAcoesSemanticas.COMPARADOR_MAIOR_IGUAL:
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
+				break;
+			case ParametrosAcoesSemanticas.COMPARADOR_MENOR_IGUAL:
+				// TODO: Verificar se é positivo.
+				break;
+			case ParametrosAcoesSemanticas.COMPARADOR_IGUAL:
+				// TODO: verificar se é positivo ou negativo.
+				break;
+			case ParametrosAcoesSemanticas.COMPARADOR_DIFERENTE:
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJZ\t"+rotulo.toString()+"\n").toCharArray()));
+				break;
+		}
+	}
+	
+	public static void comandos_20_3_41_21() {
+		Object operando = AcoesSemanticas.desempilharOperando();
+		
+		if(operando instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("K_"+((Int) operando).getValue()+"\n").toCharArray()));
+		} else if(operando instanceof String) {
+			GERADOR_CODIGO.addAreaCodigo(new String((operando.toString()+"\n").toCharArray()));
+		}
+		
+		String rotulo = new String(("END_"+CONTADOR_FINAL_WHILE).toCharArray());
+		CONTADOR_FINAL_WHILE++;
+		PILHA_ROTULO_END_WHILE.push(rotulo);
+		
+		switch (ParametrosAcoesSemanticas.COMPARADOR) {
+			case ParametrosAcoesSemanticas.COMPARADOR_MAIOR:
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJZ\t"+rotulo.toString()+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
+				break;
+			case ParametrosAcoesSemanticas.COMPARADOR_MENOR:
+				// TODO: Verificar se é positivo.
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJZ\t"+rotulo.toString()+"\n").toCharArray()));
+				break;
+			case ParametrosAcoesSemanticas.COMPARADOR_MAIOR_IGUAL:
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
+				break;
+			case ParametrosAcoesSemanticas.COMPARADOR_MENOR_IGUAL:
+				// TODO: Verificar se é positivo.
+				break;
+			case ParametrosAcoesSemanticas.COMPARADOR_IGUAL:
+				// TODO: verificar se é positivo ou negativo.
+				break;
+			case ParametrosAcoesSemanticas.COMPARADOR_DIFERENTE:
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJZ\t"+rotulo.toString()+"\n").toCharArray()));
+				break;
+		}
+	}
+	
+	public static void comandos_34_3_123_35() {
+		
+	}
+	
+	public static void comandos_35_3_125_36() {
+		String rotulo = PILHA_ROTULOS.pop();
+		
+		GERADOR_CODIGO.addAreaCodigo(new String((rotulo.toString()).toCharArray()));
+		
+		ParametrosAcoesSemanticas.limparParametros();
+		AcoesSemanticas.deletarEscopo();
+	}
+	
+	public static void comandos_13_1_2_3() {
+		AcoesSemanticas.criarEscopo();
+		
+		String rotulo = new String(("WHL_"+CONTADOR_WHILE).toCharArray());
+		PILHA_ROTULOS.push(rotulo);
+		CONTADOR_WHILE++;
+		
+		GERADOR_CODIGO.addAreaCodigo(new String((rotulo.toString()).toCharArray()));
+	}
+	
+	public static void comandos_22_3_125_13() {
+		String rotulo = PILHA_ROTULOS.pop();
+		GERADOR_CODIGO.addAreaCodigo(new String(("\tJP\t"+rotulo+"\n").toCharArray()));
+		
+		rotulo = PILHA_ROTULO_END_WHILE.pop();
+		GERADOR_CODIGO.addAreaCodigo(new String((rotulo.toString()).toCharArray()));
 	}
 	
 	// Submáquina EXPRESSÃO

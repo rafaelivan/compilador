@@ -1,10 +1,19 @@
-main {
-	int var;
+int fatorial(int n) {
+	int aux;
+	aux = 1;
 	
-	var = 4;
-	
-	if(var > 3) {
-		var = 5;
+	while(n > 0) {
+		aux = +aux*n;
+		n = +n-1;
 	}
 	
+	return aux;
+}
+
+main {
+	int var, resultado;
+	
+	var = 8;
+	
+	resultado = fatorial(var);
 }

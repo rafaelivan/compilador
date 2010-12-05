@@ -22,6 +22,16 @@ public class ParametrosAcoesSemanticas {
 	public static final int TIPO_SIMBOLO_STRING = 3;
 	public static final int TIPO_SIMBOLO_VOID = 4;
 	
+	/*
+	 * Mapeamento de compaadores.
+	 */
+	public static final int COMPARADOR_MENOR = 0;
+	public static final int COMPARADOR_MAIOR = 1;
+	public static final int COMPARADOR_IGUAL = 2;
+	public static final int COMPARADOR_MENOR_IGUAL = 3;
+	public static final int COMPARADOR_MAIOR_IGUAL  = 4;
+	public static final int COMPARADOR_DIFERENTE = 5;
+	
 	public static Token TOKEN;						// O token referente ao s知bolo.
 	public static Token TOKEN_ID_ANTERIOR;	
 	public static Token TOKEN_LADO_ESQUERDO_ATRIB;
@@ -34,6 +44,7 @@ public class ParametrosAcoesSemanticas {
 	public static int[] PARAMETROS;					// Par盈etros passados (no caso de fun惚es).
 	public static int ID_FUNCAO;					// Id da fun豪o na tabela de s知bolos.
 	public static String ROTULO;					// R葉ulo do s知bolo.
+	public static int COMPARADOR;
 	
 	public static void limparParametros() {
 		TOKEN = null;
