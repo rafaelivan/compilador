@@ -25,6 +25,7 @@ public class ParametrosAcoesSemanticas {
 	public static Token TOKEN;						// O token referente ao símbolo.
 	public static Token TOKEN_ID_ANTERIOR;	
 	public static Token TOKEN_LADO_ESQUERDO_ATRIB;
+	public static Token TOKEN_FUNCAO;
 	public static int TIPO;							// Tipo do símbolo.
 	public static int CATEGORIA;					// Categoria do símbolo.
 	public static String ENDERECO;					// Endereço de 

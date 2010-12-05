@@ -1,12 +1,10 @@
-int fatorial(int n) {
-	int a, b;
-	
-	a = 1;
-	b = 1+2*(6/2);
-}
-
 main {
-	int c;
+	int var;
 	
-	c = 12;
+	var = 4;
+	
+	if(var > 3) {
+		var = 5;
+	}
+	
 }

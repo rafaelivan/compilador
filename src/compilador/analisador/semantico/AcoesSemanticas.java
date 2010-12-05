@@ -1,8 +1,9 @@
 package compilador.analisador.semantico;
 
 import compilador.analisador.lexico.ParametrosAcoesSemanticas;
+import compilador.analisador.lexico.Token;
+import compilador.analisador.sintatico.ErroSintatico;
 import compilador.estruturas.Int;
-import compilador.estruturas.ListaLigada;
 import compilador.estruturas.Pilha;
 import compilador.estruturas.String;
 import compilador.gerador.codigo.GeradorCodigo;
@@ -41,6 +42,16 @@ public class AcoesSemanticas {
 	private static int CONTADOR_CONSTANTE = 0;
 	
 	/**
+	 * Contador para vari‡veis tempor‡rias.
+	 */
+	private static int CONTADOR_TEMP = 0;
+	
+	/**
+	 * Contador de par‰metros.
+	 */
+	private static int CONTADOR_PARAMETROS = 0;
+	
+	/**
 	 * Pilha para controlar a compatibilidade de tipos.
 	 */
 	private static Pilha<Int> PILHA_CONTROLE_TIPOS = new Pilha<Int>();
@@ -48,7 +59,7 @@ public class AcoesSemanticas {
 	/**
 	 * Pilha para manipular os operandos das express›es.
 	 */
-	private static Pilha<Int> PILHA_OPERANDOS = new Pilha<Int>();
+	private static Pilha<Object> PILHA_OPERANDOS = new Pilha<Object>();
 	
 	/**
 	 * Pilha para manipular os operadores das express›es.
@@ -111,26 +122,30 @@ public class AcoesSemanticas {
 	 * Empilha um operando na pilha de operandos
 	 * @param op
 	 */
-	public static void empilharOperando(int op) {
-		Int operando = new Int(op);
-		PILHA_OPERANDOS.push(operando);
+	public static void empilharOperando(Object op) {		
+		PILHA_OPERANDOS.push(op);
 	}
 	
 	/**
 	 * Desempilha o operando no topo da pilha.
 	 * @return
 	 */
-	public static int desempilharOperando() {
+	public static Object desempilharOperando() {
 		PILHA_CONTROLE_TIPOS.pop();
-		return PILHA_OPERANDOS.pop().getValue();
+		return PILHA_OPERANDOS.pop();
 	}
 	
 	public static void empilharOperador(int op) {
-		if(op == (int)'+' || op == (int)'-')
-			if(!PILHA_OPERADORES.vazia() && (PILHA_OPERADORES.first().getValue() == (int)'*' || PILHA_OPERADORES.first().getValue() == (int)'/'))
+		if(op == (int)'+' || op == (int)'-') {
+			if(!PILHA_OPERADORES.vazia() && (PILHA_OPERADORES.first().getValue() == (int)'*' || PILHA_OPERADORES.first().getValue() == (int)'/')) {
 				AcoesSemanticas.calcularExpressao();
-		
-		PILHA_OPERADORES.push(new Int(op));
+				AcoesSemanticas.empilharOperador(op);
+			} else {
+				PILHA_OPERADORES.push(new Int(op));
+			}
+		} else {
+			PILHA_OPERADORES.push(new Int(op));
+		}
 	}
 	
 	/**
@@ -144,48 +159,99 @@ public class AcoesSemanticas {
 	public static void gerarConstante(int c) {
 		if(!TabelaNumeros.getInstance().numeroNaLista(c)) {
 			TabelaNumeros.getInstance().inserirNumero(c);
-			compilador.estruturas.String dado = new compilador.estruturas.String(("K_"+c+"\tK\t="+c+"\n").toCharArray());
+			String dado = new String(("K_"+c+"\tK\t="+c+"\n").toCharArray());
 			GERADOR_CODIGO.addAreaDados(dado);
 		}
 	}
 	
+	public static String gerarVariavelTemporaria() {
+		String var = new String(("TMP_"+CONTADOR_TEMP).toCharArray());
+		String dado = new String((var.toString()+"\tK\t=0\n").toCharArray());
+		CONTADOR_TEMP++;
+		GERADOR_CODIGO.addAreaDados(dado);
+		
+		return var;
+	}
+	
 	public static void calcularExpressao() {
-		int operando1;
-		int operando2;
+		Object operando1;
+		Object operando2;
 		int operador;
 		
-		while(!PILHA_OPERADORES.vazia()) {
-			operando1 = AcoesSemanticas.desempilharOperando();
-			operando2 = AcoesSemanticas.desempilharOperando();
-			operador = AcoesSemanticas.desempilharOperador();
-			
+		operando1 = AcoesSemanticas.desempilharOperando();
+		operando2 = AcoesSemanticas.desempilharOperando();
+		operador = AcoesSemanticas.desempilharOperador();
+		
+		if(operando1 instanceof Int && operando2 instanceof Int) {
 			switch (operador) {
 				case (int)'+':
-					AcoesSemanticas.empilharOperando(operando2+operando1);
+					AcoesSemanticas.empilharOperando(new Int(((Int)operando2).getValue() + ((Int) operando1).getValue()));
 					break;
 				case (int)'-':
-					AcoesSemanticas.empilharOperando(operando2-operando1);
+					AcoesSemanticas.empilharOperando(new Int(((Int)operando2).getValue() - ((Int) operando1).getValue()));
 					break;
 				case (int)'*':
-					AcoesSemanticas.empilharOperando(operando2*operando1);
+					AcoesSemanticas.empilharOperando(new Int(((Int)operando2).getValue() * ((Int) operando1).getValue()));
 					break;
 				case (int)'/':
-					AcoesSemanticas.empilharOperando(operando2/operando1);
+					AcoesSemanticas.empilharOperando(new Int(((Int)operando2).getValue() / ((Int) operando1).getValue()));
 					break;
 			}
+		} else {
+			AcoesSemanticas.gerarCodigoTermo(operando1, operando2, operador);
 		}
 	}
 	
-	public static int finalizarExpressao() {
-		if(!PILHA_OPERADORES.vazia())
-			AcoesSemanticas.calcularExpressao();
+	public static void gerarCodigoTermo(Object operando1, Object operando2, int operador) {
+		String codigo = new String(("\tLD\t").toCharArray());
 		
-		int resultado = AcoesSemanticas.desempilharOperando();
-		PILHA_CONTROLE_TIPOS.pop();
-		AcoesSemanticas.gerarConstante(resultado);
+		if(operando2 instanceof Int) {
+			codigo = codigo.append(("K_" + (((Int) operando2).getValue()) + "\n").toCharArray());
+		} else if(operando2 instanceof String) {
+			codigo = codigo.append((((String) operando2).toString() + "\n").toCharArray());
+		} else {
+			System.out.println(operando2);
+		}
+		
+		switch(operador) {
+			case (int)'+':
+				codigo = codigo.append(("\t+\t").toCharArray());
+				break;
+			case (int)'-':
+				codigo = codigo.append(("\t-\t").toCharArray());
+				break;
+			case (int)'*':
+				codigo = codigo.append(("\t*\t").toCharArray());
+				break;
+			case (int)'/':	
+				codigo = codigo.append(("\t/\t").toCharArray());
+				break;
+		}
+		
+		if(operando1 instanceof Int) {
+			codigo = codigo.append(("K_" + (((Int) operando1).getValue()) + "\n").toCharArray());
+		} else if(operando1 instanceof String) {
+			codigo = codigo.append((((String) operando1).toString() + "\n").toCharArray());
+		}
+		
+		String rotulo = AcoesSemanticas.gerarVariavelTemporaria();
+		codigo = codigo.append(("\tMM\t"+rotulo.toString()+"\n").toCharArray());
+		AcoesSemanticas.empilharOperando(rotulo);
+		
+		GERADOR_CODIGO.addAreaCodigo(codigo);
+	}
+	
+	public static Object finalizarExpressao() {
+		while(!PILHA_OPERADORES.vazia()) {
+			AcoesSemanticas.calcularExpressao();
+		}
+		
+		Object resultado = AcoesSemanticas.desempilharOperando();
+		if(resultado instanceof Int) {
+			AcoesSemanticas.gerarConstante(((Int) resultado).getValue());
+		}
 		
 		return resultado;
-		
 	}
 	
 	/* **************************** */
@@ -217,7 +283,7 @@ public class AcoesSemanticas {
 	}
 	
 	public static void programa_0_1_15_3() {
-		GERADOR_CODIGO.addAreaCodigo(new String("\nMAIN\n".toCharArray()));
+		GERADOR_CODIGO.addAreaCodigo(new String("\nMAIN".toCharArray()));
 		AcoesSemanticas.criarEscopo();
 	}
 	
@@ -252,6 +318,8 @@ public class AcoesSemanticas {
 	
 	
 	public static void programa_10_3_125_0() {
+		GERADOR_CODIGO.addAreaDados(new String(("EXT_"+ParametrosAcoesSemanticas.ID_FUNCAO+"\tK\t=0\n").toCharArray()));
+		GERADOR_CODIGO.addAreaCodigo(new String(("\tMM\tEXT_"+ParametrosAcoesSemanticas.ID_FUNCAO+"\n").toCharArray()));
 		GERADOR_CODIGO.addAreaCodigo(new String(("\tRS\t").toCharArray()));
 		GERADOR_CODIGO.addAreaCodigo(Escopos.getSimboloRotulo(ParametrosAcoesSemanticas.ID_FUNCAO).append("\n".toCharArray()));
 	}
@@ -368,9 +436,14 @@ public class AcoesSemanticas {
 	}
 	
 	public static void comandos_11_3_59_13() {
-		int resultado = AcoesSemanticas.finalizarExpressao();
+		Object resultado = AcoesSemanticas.finalizarExpressao();
 		
-		GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+resultado+"\n").toCharArray()));
+		if(resultado instanceof Int) {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\tK_"+((Int) resultado).getValue()+"\n").toCharArray()));
+		} else {
+			GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+((String) resultado).toString()+"\n").toCharArray()));
+		}
+		
 		GERADOR_CODIGO.addAreaCodigo(new String(("\tMM\t").toCharArray()));
 		GERADOR_CODIGO.addAreaCodigo(Escopos.getSimboloRotulo(ParametrosAcoesSemanticas.TOKEN_LADO_ESQUERDO_ATRIB.getID()));
 		GERADOR_CODIGO.addAreaCodigo(new String(("\n").toCharArray()));
@@ -378,13 +451,57 @@ public class AcoesSemanticas {
 		ParametrosAcoesSemanticas.limparParametros();
 	}
 	
+	public static void comandos_12_3_41_11() {
+		AcoesSemanticas.empilharOperando(new String(("EXT_"+ParametrosAcoesSemanticas.ID_FUNCAO).toCharArray()));
+		GERADOR_CODIGO.addAreaCodigo(new String(("\tSC\tFUN_"+ParametrosAcoesSemanticas.ID_FUNCAO+"\n").toCharArray()));
+	}
+	
+	public static void comandos_9_2_0_17() {
+		if(Escopos.isSimboloDeclarado(ParametrosAcoesSemanticas.TOKEN.getID())) {
+			if(Escopos.getSimboloTipo(ParametrosAcoesSemanticas.TOKEN.getID()) == Escopos.getSimboloTipo(ParametrosAcoesSemanticas.TOKEN_LADO_ESQUERDO_ATRIB.getID())) {
+				if(Escopos.getSimboloCategoria(ParametrosAcoesSemanticas.TOKEN.getID()) == ParametrosAcoesSemanticas.CATEGORIA_SIMBOLO_FUNCAO)
+					ParametrosAcoesSemanticas.TOKEN_FUNCAO = ParametrosAcoesSemanticas.TOKEN;
+			}
+		}
+	}
+	
+	public static void comandos_17_3_40_10() {
+		CONTADOR_PARAMETROS = 0;
+	}
+	
+	public static void comandos_10_2_0_12() {
+		TSLinha[] parametros = Escopos.getSimboloParametros(ParametrosAcoesSemanticas.TOKEN_FUNCAO.getID());
+		
+		if(ParametrosAcoesSemanticas.TOKEN.getClasse() == Token.CLASSE_IDENTIFICADOR) {
+			if(parametros[CONTADOR_PARAMETROS].getTipo() == Escopos.getSimboloTipo(ParametrosAcoesSemanticas.TOKEN.getID())) {
+				String rotuloParametro = parametros[CONTADOR_PARAMETROS].getRotulo();
+				String rotuloArgumento = Escopos.getSimboloRotulo(ParametrosAcoesSemanticas.TOKEN.getID());
+				
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+rotuloArgumento+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tMM\t"+rotuloParametro+"\n").toCharArray()));
+			}
+		} else if(ParametrosAcoesSemanticas.TOKEN.getClasse() == Token.CLASSE_NUMERO_INTEIRO) {
+			if(parametros[CONTADOR_PARAMETROS].getTipo() == ParametrosAcoesSemanticas.TIPO_SIMBOLO_INT) {
+				String rotuloParametro = parametros[CONTADOR_PARAMETROS].getRotulo();
+				String rotuloArgumento = new String(("K_"+ParametrosAcoesSemanticas.TOKEN.getID()).toCharArray());
+				
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tLD\t"+rotuloArgumento+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tMM\t"+rotuloParametro+"\n").toCharArray()));
+			}
+		} else {
+			// TODO
+		}
+		
+		CONTADOR_PARAMETROS++;
+	}
+	
 	// Subm‡quina EXPRESSÌO
 	
 	public static void expressao_0_4_0_3() {
 		if(AcoesSemanticas.empilharTipo(ParametrosAcoesSemanticas.TIPO_SIMBOLO_INT)) {
-			int numero = ParametrosAcoesSemanticas.TOKEN.getID();
+			Int numero = new Int(ParametrosAcoesSemanticas.TOKEN.getID());
 			
-			AcoesSemanticas.gerarConstante(numero);
+			AcoesSemanticas.gerarConstante(numero.getValue());
 			AcoesSemanticas.empilharOperando(numero);
 		}
 	}
@@ -402,6 +519,45 @@ public class AcoesSemanticas {
 	}
 	
 	public static void expressao_3_3_47_0() {
+		AcoesSemanticas.empilharOperador(ParametrosAcoesSemanticas.TOKEN.getID());
+	}
+	
+	public static void expressao_0_2_0_2() {
+		AcoesSemanticas.empilharOperando(Escopos.getSimboloRotulo(ParametrosAcoesSemanticas.TOKEN.getID()));
+	}
+	
+	public static void expressao_0_3_43_1() {
+		if(AcoesSemanticas.empilharTipo(ParametrosAcoesSemanticas.TIPO_SIMBOLO_INT)) {
+			AcoesSemanticas.empilharOperando(new Int(0));
+			AcoesSemanticas.empilharOperador(ParametrosAcoesSemanticas.TOKEN.getID());
+		}
+	}
+	
+	public static void expressao_0_3_45_1() {
+		if(AcoesSemanticas.empilharTipo(ParametrosAcoesSemanticas.TIPO_SIMBOLO_INT)) {
+			AcoesSemanticas.empilharOperando(new Int(0));
+			AcoesSemanticas.empilharOperador(ParametrosAcoesSemanticas.TOKEN.getID());
+		}
+	}
+	
+	public static void expressao_1_2_0_2() {
+		if(AcoesSemanticas.empilharTipo(ParametrosAcoesSemanticas.TIPO_SIMBOLO_INT))
+			AcoesSemanticas.empilharOperando(Escopos.getSimboloRotulo(ParametrosAcoesSemanticas.TOKEN.getID()));
+	}
+	
+	public static void expressao_2_3_45_0() {
+		AcoesSemanticas.empilharOperador(ParametrosAcoesSemanticas.TOKEN.getID());
+	}
+	
+	public static void expressao_2_3_42_0() {
+		AcoesSemanticas.empilharOperador(ParametrosAcoesSemanticas.TOKEN.getID());
+	}
+	
+	public static void expressao_2_3_43_0() {
+		AcoesSemanticas.empilharOperador(ParametrosAcoesSemanticas.TOKEN.getID());
+	}
+	
+	public static void expressao_2_3_47_0() {
 		AcoesSemanticas.empilharOperador(ParametrosAcoesSemanticas.TOKEN.getID());
 	}
 }
