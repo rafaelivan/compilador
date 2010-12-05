@@ -287,7 +287,7 @@ public class AnalisadorSemantico {
 				
 		String m = tabelaAcoesSemanticas[estado][token.getClasse()][valor];
 		if(m != null) {
-			System.out.println(m);
+			//System.out.println(m);
 			
 			try {
 				// Executa a ação semântica usando Reflection.

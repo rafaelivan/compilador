@@ -1,5 +1,8 @@
 package compilador.gerador.codigo;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 import compilador.estruturas.String;
 import compilador.helper.ArrayHelper;
 
@@ -61,6 +64,19 @@ public class GeradorCodigo {
 		while(!this.bufferDados.estaVazio())
 			codigo = new String(ArrayHelper.concatenarVetoresChar(codigo.toCharArray(), this.bufferDados.proximo().toCharArray()));
 		
+		this.gerarArquivoObjeto(codigo);
+		
 		return codigo;
+	}
+	
+	private void gerarArquivoObjeto(String codigo) {
+		try {
+			FileOutputStream fos = new FileOutputStream(new File("src/compilador/testes/source.asm"));
+			fos.write(codigo.toString().getBytes());
+			fos.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

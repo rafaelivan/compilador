@@ -83,9 +83,9 @@ public class AnalisadorSintatico {
 		AnalisadorSintatico sintatico = new AnalisadorSintatico();
 		boolean resultado = sintatico.processarCodigoFonte();
 		
-		if(resultado)
-			System.out.println("\nRESULTADO: O programa esta sintaticamente correto.");
-		else
-			System.out.println("\nRESULTADO: O programa nao esta sintaticamente correto.");
+//		if(resultado)
+//			System.out.println("\nRESULTADO: O programa esta sintaticamente correto.");
+//		else
+//			System.out.println("\nRESULTADO: O programa nao esta sintaticamente correto.");
 	}
 }

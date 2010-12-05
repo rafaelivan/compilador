@@ -86,7 +86,7 @@ public class AcoesSemanticas {
 	 * Cria uma nova tabela de s’mbolos no contexto de escopos.
 	 */
 	public static void criarEscopo() {
-		System.out.println("ACAO SEMANTICA: criarEscopo");
+//		System.out.println("ACAO SEMANTICA: criarEscopo");
 		
 		TabelaSimbolos ts = new TabelaSimbolos();
 		Escopos.putTabelaSimbolos(ts);
@@ -96,7 +96,7 @@ public class AcoesSemanticas {
 	 * Deleta uma tabela de s’mbolos do contexto de escopos.
 	 */
 	public static void deletarEscopo() {
-		System.out.println("ACAO SEMANTICA: deletarEscopo");
+//		System.out.println("ACAO SEMANTICA: deletarEscopo");
 		
 		Escopos.popTabelaSimbolos();
 	}
