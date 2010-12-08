@@ -51,11 +51,6 @@ public class Submaquina {
 	 */
 	private int[][] tabelaChamadaSubmaquinas;
 	
-	/**
-	 * Tabela que relaciona o nome de cada ação semântica com as transições da submáquina.
-	 */
-	private String[][][] tabelaAcoesSemanticas;
-	
 	public Submaquina(String nome, int estadoInicial, int[] estadosFinais, int[][][] tabelaTransicao, int[][] tabelaChamadaSubmaquinas) {
 		this.nome = nome;
 		this.estadoInicial = this.estadoAtual = estadoInicial;
@@ -108,16 +103,21 @@ public class Submaquina {
 	 * @return
 	 */
 	public int transicao(Token token) {
-		int proximoEstado = this.tabelaTransicao[this.estadoAtual][token.getClasse()][token.getID()];
+		try{
+			int proximoEstado = this.tabelaTransicao[this.estadoAtual][token.getClasse()][token.getID()];
 		
-		if(proximoEstado == ESTADO_INVALIDO) {
-			// Deve tentar chamar uma submáquina.
-			return TRANSICAO_FALHOU;
-		} else {
-			// Há transição disponível.
-			this.estadoAtual = proximoEstado;
-			return TRANSICAO_OK;
+			if(proximoEstado == ESTADO_INVALIDO) {
+				// Deve tentar chamar uma submáquina.
+				return TRANSICAO_FALHOU;
+			} else {
+				// Há transição disponível.
+				this.estadoAtual = proximoEstado;
+				return TRANSICAO_OK;
+			}
+		} catch(Exception e) {
+			System.exit(0);
 		}
+		return TRANSICAO_FALHOU;
 	}
 	
 	/**

@@ -1,19 +1,21 @@
-int fatorial(int n) {
-	int aux;
-	aux = 1;
+// Calcula o dobro de um nœmero recebido.
+int dobro(int n) {
+	int d;
+	d = 2*n;
 	
-	while(n > 0) {
-		aux = +aux*n;
-		n = +n-1;
-	}
-	
-	return aux;
+	return d;
 }
 
 main {
-	int var, resultado;
+	int numero;
 	
-	var = 8;
+	numero = 8;
 	
-	resultado = fatorial(var);
+	while(numero <= 32) {
+		// P‡ra de executar quando o nœmero
+		// for multiplicado por 3 duas vezes.
+		// No final, dever‡ ter 64 em "numero".
+		 
+		numero = dobro(numero);
+	}
 }

@@ -9,7 +9,6 @@ import compilador.gerador.codigo.GeradorCodigo;
 
 
 public class AcoesSemanticas {
-	
 	/**
 	 * Gerador de código.
 	 */
@@ -34,11 +33,6 @@ public class AcoesSemanticas {
 	 * Contador para criação dos rótulos das variáveis.
 	 */
 	private static int CONTADOR_VARIAVEL = 0;
-	
-	/**
-	 * Contador para a criação de constantes.
-	 */
-	private static int CONTADOR_CONSTANTE = 0;
 	
 	/**
 	 * Contador para variáveis temporárias.
@@ -694,17 +688,36 @@ public class AcoesSemanticas {
 				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
 				break;
 			case ParametrosAcoesSemanticas.COMPARADOR_MENOR:
-				// TODO: Verificar se é positivo.
+				AcoesSemanticas.gerarConstante(0);
 				GERADOR_CODIGO.addAreaCodigo(new String(("\tJZ\t"+rotulo.toString()+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaDados(new String(("TEMP_"+CONTADOR_TEMP+"\tK\t=0\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tMM\tTEMP_"+CONTADOR_TEMP+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String("\tLD\tK_0\n".toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\t-\tTEMP_"+CONTADOR_TEMP+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
+				CONTADOR_TEMP++;
 				break;
 			case ParametrosAcoesSemanticas.COMPARADOR_MAIOR_IGUAL:
 				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
 				break;
 			case ParametrosAcoesSemanticas.COMPARADOR_MENOR_IGUAL:
-				// TODO: Verificar se é positivo.
+				AcoesSemanticas.gerarConstante(0);
+				GERADOR_CODIGO.addAreaDados(new String(("TEMP_"+CONTADOR_TEMP+"\tK\t=0\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tMM\tTEMP_"+CONTADOR_TEMP+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String("\tLD\tK_0\n".toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\t-\tTEMP_"+CONTADOR_TEMP+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
+				CONTADOR_TEMP++;
 				break;
 			case ParametrosAcoesSemanticas.COMPARADOR_IGUAL:
-				// TODO: verificar se é positivo ou negativo.
+				AcoesSemanticas.gerarConstante(0);
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJZ\t"+rotulo.toString()+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaDados(new String(("TEMP_"+CONTADOR_TEMP+"\tK\t=0\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tMM\tTEMP_"+CONTADOR_TEMP+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String("\tLD\tK_0\n".toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\t-\tTEMP_"+CONTADOR_TEMP+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
+				CONTADOR_TEMP++;
 				break;
 			case ParametrosAcoesSemanticas.COMPARADOR_DIFERENTE:
 				GERADOR_CODIGO.addAreaCodigo(new String(("\tJZ\t"+rotulo.toString()+"\n").toCharArray()));
@@ -731,17 +744,36 @@ public class AcoesSemanticas {
 				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
 				break;
 			case ParametrosAcoesSemanticas.COMPARADOR_MENOR:
-				// TODO: Verificar se é positivo.
+				AcoesSemanticas.gerarConstante(0);
 				GERADOR_CODIGO.addAreaCodigo(new String(("\tJZ\t"+rotulo.toString()+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaDados(new String(("TEMP_"+CONTADOR_TEMP+"\tK\t=0\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tMM\tTEMP_"+CONTADOR_TEMP+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String("\tLD\tK_0\n".toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\t-\tTEMP_"+CONTADOR_TEMP+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
+				CONTADOR_TEMP++;
 				break;
 			case ParametrosAcoesSemanticas.COMPARADOR_MAIOR_IGUAL:
 				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
 				break;
 			case ParametrosAcoesSemanticas.COMPARADOR_MENOR_IGUAL:
-				// TODO: Verificar se é positivo.
+				AcoesSemanticas.gerarConstante(0);
+				GERADOR_CODIGO.addAreaDados(new String(("TEMP_"+CONTADOR_TEMP+"\tK\t=0\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tMM\tTEMP_"+CONTADOR_TEMP+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String("\tLD\tK_0\n".toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\t-\tTEMP_"+CONTADOR_TEMP+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
+				CONTADOR_TEMP++;
 				break;
 			case ParametrosAcoesSemanticas.COMPARADOR_IGUAL:
-				// TODO: verificar se é positivo ou negativo.
+				AcoesSemanticas.gerarConstante(0);
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJZ\t"+rotulo.toString()+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaDados(new String(("TEMP_"+CONTADOR_TEMP+"\tK\t=0\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tMM\tTEMP_"+CONTADOR_TEMP+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String("\tLD\tK_0\n".toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\t-\tTEMP_"+CONTADOR_TEMP+"\n").toCharArray()));
+				GERADOR_CODIGO.addAreaCodigo(new String(("\tJN\t"+rotulo.toString()+"\n").toCharArray()));
+				CONTADOR_TEMP++;
 				break;
 			case ParametrosAcoesSemanticas.COMPARADOR_DIFERENTE:
 				GERADOR_CODIGO.addAreaCodigo(new String(("\tJZ\t"+rotulo.toString()+"\n").toCharArray()));

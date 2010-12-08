@@ -284,24 +284,18 @@ public class AnalisadorSemantico {
 			valor = 0;
 		else
 			valor = token.getID();
-				
-		String m = tabelaAcoesSemanticas[estado][token.getClasse()][valor];
-		if(m != null) {
-			//System.out.println(m);
-			
-			try {
+		
+		try {
+			String m = tabelaAcoesSemanticas[estado][token.getClasse()][valor];
+			if(m != null) {
 				// Executa a ação semântica usando Reflection.
 				Class<?> classe = Class.forName("compilador.analisador.semantico.AcoesSemanticas");
 				Method metodo = classe.getMethod(m, new Class[0]);
 				metodo.invoke(null, new Object[0]);
-				
-			} catch (NoSuchMethodException e) {
-				// Nada.
-			} catch(Exception e) {
-				e.printStackTrace();
-				System.out.println("=====>" + m);
 			}
-		}	
+		} catch(Exception e) {
+			
+		}
 	}
 	
 	public static void armazenarToken(Token token) {
